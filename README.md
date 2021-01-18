@@ -1,6 +1,6 @@
 # Orinoco
 
-Site e-commerce OriTeddy, présentant des ours en peluche.
+Site e-commerce Oriteddy, présentant des ours en peluche.
 
 
 # Prérequis
