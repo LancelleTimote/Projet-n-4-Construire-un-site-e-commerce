@@ -18,6 +18,7 @@ function requestDone (response) {
 
     //boucle parcours réponse requête
     for (i=0; i<response.length; i++) {
+        let imageUrl = response[i].imageUrl;
         let name = response[i].name;
         let description = response[i].description;
         let id = response[i]._id;
@@ -26,7 +27,7 @@ function requestDone (response) {
         let carte = document.createElement("div");
         carte.classList.add("col-12","col-lg-4");
         carte.innerHTML = '<div class="card mb-4 mb-lg-0 border-light shadow-sm">'
-        +'<img src="images/teddy_1.jpg" alt="Image du cours CSS" class="card-img-top">'
+        +'<img src='+imageUrl+' alt="Photo ours en peluche" class="card-img-top">'
         +'<div class="card-body">'
             +'<h5 class="card-title">'+name+'</h5>'
             +'<p class="card-text">'+description+'</p>'
