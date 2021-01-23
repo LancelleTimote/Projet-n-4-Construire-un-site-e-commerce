@@ -22,57 +22,71 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <header>
             <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="images/logo.png" width="50" height="50" alt="Logo du site Oriteddy">
-                Oriteddy</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div id="navbarContent" class="collapse navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Accueil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="produits.html">Produits</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Album</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="panier.html">Panier</a>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <a class="col text-center text-success text-decoration-none" href="index.html">
+                        <img src="images/logo.png" width="75" height="75" alt="Logo du site Oriteddy">
+                        <h1 class="mt-2">Oriteddy</h1>
+                    </a>
                 </div>
             </div>
-        </nav>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light my-4 py-3">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navbarContent" class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item active mx-3">
+                                <a class="nav-link text-success" href="index.html">Accueil</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link text-success" href="produits.html">Produits</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link text-success" href="album.html">Album</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link text-success" href="panier.html">Panier</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
         <div class="container">
             <div class="row my-3">
-                <div class="col">
-                    <h1>Produits</h1>
+                <div class="col text-center">
+                    <h2>Produits</h2>
                 </div>
             </div>
             <div class="row" id="listeCartes">
                 <!--carte inséré en JS-->
             </div>
         </div>
-        <div class="bg-light mt-5">
-            <div class="container">
-                <div class="row pt-4 pb-3">
-                    <div class="col">
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item"><a href="#">À propos</a></li>
-                            <li class="list-inline-item">&middot;</li>
-                            <li class="list-inline-item"><a href="#">Mentions légales</a></li>
-                            <li class="list-inline-item">&middot;</li>
-                            <li class="list-inline-item"><a href="#">Contact</a></li>
+        <footer class="mt-5">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light my-4 py-3">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navbarContent" class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item active mx-3">
+                                <a class="nav-link text-success" href="index.html">À propos</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link text-success" href="produits.html">Mentions légales</a>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <a class="nav-link text-success" href="album.html">Contact</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
+            </nav>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
