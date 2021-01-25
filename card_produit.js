@@ -17,16 +17,16 @@ function requestDone (response) {
     let listeCartes = document.getElementById("listeCartes");
 
     //boucle parcours réponse requête
-    for (i=0; i<response.length; i++) {
+    for (i=0; i<response.length; i++) { //for pour définir la boucle, i pour donner un indice qui commence à 0, boucle qui continue tant qu'inférieur aux réponses, puis rajoute 1 à i à chaque fois
         let imageUrl = response[i].imageUrl;
         let name = response[i].name;
         let description = response[i].description;
         let id = response[i]._id;
 
         //création carte produit
-        let carte = document.createElement("div");
-        carte.classList.add("col-12","col-lg-4");
-        carte.innerHTML = '<div class="card mb-4 mb-lg-0 border-light shadow-sm">'
+        let carte = document.createElement("div");  //on crée une div
+        carte.classList.add("card-deck","col-lg-4");    //on ajoute deux class à la div
+        carte.innerHTML = '<div class="card border-success shadow mb-4">'   //on ajoute du contenu dans la div
         +'<img src='+imageUrl+' alt="Photo ours en peluche" class="card-img-top">'
         +'<div class="card-body">'
             +'<h5 class="card-title">'+name+'</h5>'
