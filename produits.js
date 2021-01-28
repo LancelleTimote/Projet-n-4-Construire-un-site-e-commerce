@@ -36,8 +36,8 @@ function requestDone (response) {
         +'</div>';
 
         //append de la carte sur la listeCartes
-        listeCartes.appendChild(carte);
+        listeCartes.appendChild(carte); //permet d'ajouter les cartes sur la page
     }
-    console.log(listeCartes);
+    console.log(listeCartes); 
 }
 
