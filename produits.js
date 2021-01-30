@@ -24,14 +24,14 @@ function requestDone (response) {
         let id = response[i]._id;
 
         //création carte produit
-        let carte = document.createElement("div");  //on crée une div
+        let carte = document.createElement("section");  //on crée une div
         carte.classList.add("card-deck","col-lg-4");    //on ajoute deux class à la div
         carte.innerHTML = '<div class="card border-success shadow mb-4">'   //on ajoute du contenu dans la div
         +'<img src='+imageUrl+' alt="Photo ours en peluche" class="card-img-top">'
         +'<div class="card-body">'
             +'<h5 class="card-title">'+name+'</h5>'
             +'<p class="card-text">'+description+'</p>'
-            +'<a href="produit.html?id='+id+'" class="btn btn-primary stretched-link" role="button">Détails</a>'
+            +'<a href="produit.html?id='+id+'" class="btn btn-success" role="button">Détails</a>'
         +'</div>'
         +'</div>';
 

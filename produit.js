@@ -17,9 +17,22 @@ request.send();
 //fonction succès requête
 function requestDone (response) {
     console.log(response);
+    
+    let image = document.getElementById('image');
+    image.src = response.imageUrl;
+
     let name = document.getElementById('name');
     name.innerHTML = response.name;
-
+    
     let description = document.getElementById('description');
     description.innerHTML = response.description;
+    
+    let colors = document.getElementById('colors');
+    colors.innerHTML = response.colors;
+
+    let price = document.getElementById('price');
+    price.innerHTML = "Prix : "+response.price+" €";
+
+    
 }
+
