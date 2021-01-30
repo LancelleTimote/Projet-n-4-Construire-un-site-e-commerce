@@ -27,12 +27,29 @@ function requestDone (response) {
     let description = document.getElementById('description');
     description.innerHTML = response.description;
     
-    let colors = document.getElementById('colors');
-    colors.innerHTML = response.colors;
-
+    let color = document.getElementById("selectColor");
+    let options = response.colors;
+    for(i=0; i<options.length; i++) {
+        let opt = options[i];
+        let el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        color.appendChild(el);
+    }
+    
     let price = document.getElementById('price');
     price.innerHTML = "Prix : "+response.price+" €";
 
     
 }
 
+
+// let colors = document.getElementById('color');
+// colors.innerHTML = response.colors;
+
+// for(let i=0; i<response.colors.length; i++) {
+//         let colors = response[i].colors;
+//         let color = document.getElementById('couleur');
+//         color.innerHTML = '<option>'+colors+'</option>';
+//     }
+//     console.log(couleur);
