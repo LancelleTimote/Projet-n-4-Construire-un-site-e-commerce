@@ -25,7 +25,7 @@ function requestDone (response) {
 
         //création carte produit
         let carte = document.createElement("section");  //on crée une div
-        carte.classList.add("card-deck","col-lg-4");    //on ajoute deux class à la div
+        carte.classList.add("card-deck","col-lg-4", "card-size");    //on ajoute trois class à la div
         carte.innerHTML = '<div class="card border-success shadow mb-4">'   //on ajoute du contenu dans la div
         +'<img src='+imageUrl+' alt="Photo ours en peluche" class="card-img-top">'
         +'<div class="card-body">'

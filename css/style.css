@@ -6,14 +6,10 @@ li {
     font-size: 18px;
 }
 
-* {
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box;
-  }
-  *:before,
-  *:after {
-    -webkit-box-sizing: content-box;
-       -moz-box-sizing: content-box;
-            box-sizing: content-box;
-  }
+.title-form {
+    font-size: 18px;
+}
+
+.card-size {
+    box-sizing: content-box;
+}

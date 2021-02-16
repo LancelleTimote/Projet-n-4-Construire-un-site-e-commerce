@@ -63,39 +63,3 @@ function requestDone (response) {
 
 // Accéder à des données enregistrées
 // alert("username = " + localStorage.getItem("username"));
-
-// let productColor = document.querySelector('select').value;
-// console.log(productColor);
-
-
-// let x = document.getElementById('selectColor').selectedIndex;
-// console.log(x);
-// let y = document.getElementById('selectColor').value;
-// console.log(y);
-// color : y[x].textContent,
-
-
-// document.getElementsByTagName('select')[0].onchange = function() {
-//     let index = this.selectedIndex;
-//     let inputText = this.children[index].innerHTML.trim();
-//     console.log(inputText);
-// }
-
-
-// color.addEventListener('change', function(productColor) {
-//     let index = this.selectedIndex;
-//     console.log(index);
-//     let inputText = this.children[index].innerHTML.trim();
-//     console.log(inputText);
-// })
-
-
-// T'es bien au sein d'une fonction qui s'éxécute lors d'un clique ?
-// Sinon oui, par défaut t'auras une valeur fixe (généralement la première) :')
-
-// Tu ne peux pas récupérer la valeur selectionée par l'utilisateur de l'input sans eventListener
-// ah si il peut
-// mais ça va récupérer la valeur à l'execution de la fonction (chargement de la page) donc la valeur par défaut
-// au lieu de la valeur selectionnée
-// Donc on est d'accord qu'il ne peut pas récupérer la valeur de la couleur demandée par l'user (a moins que ça ne soit la couleur par défaut) :') **sans eventListener
-// ben c'est plus la formulation, y'a rien qui l'empêche de la récupérer à ce moment là, mais c'est pas la bonne

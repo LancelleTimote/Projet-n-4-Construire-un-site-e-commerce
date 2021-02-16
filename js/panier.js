@@ -1,5 +1,11 @@
 console.log(localStorage.getItem("cart"));
 
+function affichagePanier () {
+      let cartItems = localStorage.getItem('cart');
+      cartItems = JSON.parse(cartItems);
+}
+
+
 {/* <tr>
       <th scope="row">1</th>
       <td>Mark</td>
