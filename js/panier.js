@@ -3,6 +3,7 @@ console.log(localStorage.getItem("cart"));
 function affichagePanier () {
       let cartItems = localStorage.getItem('cart');
       cartItems = JSON.parse(cartItems);
+      
 }
 
 
