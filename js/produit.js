@@ -40,26 +40,55 @@ function requestDone (response) {
     let price = document.getElementById('price');
     price.innerHTML = "Prix : "+response.price+" €";
 
-    let produits = [
+    //Renvoi les éléments propriété des produits
+    let update_product = [
         {
+            id: id,
+            name : response.name,
             picture : response.imageUrl,
             color : null,
-            name : response.name,
             price : response.price,
         }
     ]
+    console.log(update_product);
 
-    // Sauvegarder les informations dans l’espace local courant
+    /**
+     * Détecter s'il y a déjà un panier en localstorage
+     * 
+     * @return {boolean} renvoie true s'il y a un panier ou false s'il y en a pas
+     */
+    function cartExistsInStorage () {
+        let cart = localStorage.getItem('cart');
+        if (cart === null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function itemPanier() {
+        console.log("function itemPanier()");
+        // D'abord voit s'il y a localStorage existe ou non
+        if (cartExistsInStorage()) {
+            console.log("condition : panier existe");
+
+        } else {
+            console.log("condition : panier n'existe pas");
+        }
+    }
+    itemPanier();
+
+    // // Sauvegarder les informations dans l’espace local courant
     let add_button_elt = document.getElementById('add_to_cart');
     function stockage_panier () {
         colorValue = document.getElementById('selectColor').value;
-        produits[0].color = colorValue;
-        localStorage.setItem("cart", JSON.stringify( produits ));
+        update_product[0].color = colorValue;
+        localStorage.setItem("cart", JSON.stringify( update_product ));
     }
-    add_button_elt.addEventListener("click", function() {
-        stockage_panier (); 
+    add_button_elt.addEventListener("click", function(e) {
+        e.preventDefault();
+        stockage_panier ();
+        update_product; 
     })
-}
 
-// Accéder à des données enregistrées
-// alert("username = " + localStorage.getItem("username"));
+}
