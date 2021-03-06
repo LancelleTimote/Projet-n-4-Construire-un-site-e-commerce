@@ -38,57 +38,83 @@ function requestDone (response) {
     }
 
     let price = document.getElementById('price');
-    price.innerHTML = "Prix : "+response.price+" €";
+    price.innerHTML = "Prix : "+response.price/100+" €";
 
-    //Renvoi les éléments propriété des produits
-    let update_product = [
-        {
-            id: id,
-            name : response.name,
-            picture : response.imageUrl,
-            color : null,
-            price : response.price,
+    //séléction du bouton ajouter l'article au panier
+    const sendCart = document.getElementById('add_to_cart');
+
+    //écouter le bouton et envoyer au panier
+    sendCart.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        //séléction de la couleur
+        const colorChoice = selectColor.value;
+
+        //récupération des valeurs du produit
+        let values_product = {
+                name : response.name,
+                picture : response.imageUrl,
+                color : colorChoice,
+                price : response.price/100+"€",
+                quantite : 1,
+        };
+        console.log(values_product);
+
+        //----------------------------------------Le local Storage----------------------------------------
+        //stocker la récupération des valeurs des produits dans le local storage
+
+        //déclaration de la variable "productSaveInLocalStorage" dans laquelle on met les key et les values qui sont dans le local storage
+        let productSaveInLocalStorage = JSON.parse(localStorage.getItem('cart'));
+        //JSON.parse pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript
+        console.log(productSaveInLocalStorage);
+
+        //s'il y a déjà des produits enregistrés dans le local storage
+        if (productSaveInLocalStorage) {
+            productSaveInLocalStorage.push(values_product);
+            localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+            console.log(productSaveInLocalStorage);
         }
-    ]
-    console.log(update_product);
-
-    /**
-     * Détecter s'il y a déjà un panier en localstorage
-     * 
-     * @return {boolean} renvoie true s'il y a un panier ou false s'il y en a pas
-     */
-    function cartExistsInStorage () {
-        let cart = localStorage.getItem('cart');
-        if (cart === null) {
-            return false;
-        } else {
-            return true;
+        //s'il n'y a pas de produit d'enregistré dans le local storage
+        else{
+            productSaveInLocalStorage = [];
+            productSaveInLocalStorage.push(values_product);
+            localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+            console.log(productSaveInLocalStorage);
         }
-    }
+    });
+}
 
-    function itemPanier() {
-        console.log("function itemPanier()");
-        // D'abord voit s'il y a localStorage existe ou non
-        if (cartExistsInStorage()) {
-            console.log("condition : panier existe");
+    // //Détecter s'il y a déjà un panier en localstorage
+    // function cartExistsInStorage () {
+    //     let cart = localStorage.getItem('cart');
+    //     if (cart === null) {
+    //         return false;
+    //     } else {
+    //         return true;
+    //     }
+    // }
 
-        } else {
-            console.log("condition : panier n'existe pas");
-        }
-    }
-    itemPanier();
+    // function itemPanier() {
+    // console.log("function itemPanier()");
+    //     // D'abord voit s'il y a localStorage existe ou non
+    //     if (cartExistsInStorage()) {
+    //         console.log("condition : panier existe");
+    //     } else {
+    //         console.log("condition : panier n'existe pas");
+    //     }
+    // }
+    // itemPanier();
 
     // // Sauvegarder les informations dans l’espace local courant
-    let add_button_elt = document.getElementById('add_to_cart');
-    function stockage_panier () {
-        colorValue = document.getElementById('selectColor').value;
-        update_product[0].color = colorValue;
-        localStorage.setItem("cart", JSON.stringify( update_product ));
-    }
-    add_button_elt.addEventListener("click", function(e) {
-        e.preventDefault();
-        stockage_panier ();
-        update_product; 
-    })
+    // let add_button_elt = document.getElementById('add_to_cart');
+    // function stockage_panier () {
+    //     colorValue = document.getElementById('selectColor').value;
+    //     update_product[0].color = colorValue;
+    //     localStorage.setItem("cart", JSON.stringify(update_product));
+    // }
 
-}
+    // add_button_elt.addEventListener("click", function(event) {
+    //     event.preventDefault();
+    //     stockage_panier ();
+    //     update_product; 
+    // })
