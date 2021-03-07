@@ -43,7 +43,7 @@ function requestDone (response) {
     //séléction du bouton ajouter l'article au panier
     const sendCart = document.getElementById('add_to_cart');
 
-    //écouter le bouton et envoyer au panier
+    //----------------------------------------addEventListener --- écouter le bouton et envoyer au panier
     sendCart.addEventListener("click", (event) => {
         event.preventDefault();
 
@@ -68,11 +68,21 @@ function requestDone (response) {
         //JSON.parse pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript
         console.log(productSaveInLocalStorage);
 
+        //fonction fenêtre popup
+        const popupConfirmation = () => {
+            if(window.confirm(`${response.name} avec l'option : ${colorChoice} a bien été ajouté au panier. Consulter le panier OK ou revenir à l'accueil Annuler`)){
+                window.location.href = "panier.html";
+            }else{
+                window.location.href = "index.html";
+            }
+        }
+
         //s'il y a déjà des produits enregistrés dans le local storage
         if (productSaveInLocalStorage) {
             productSaveInLocalStorage.push(values_product);
             localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
             console.log(productSaveInLocalStorage);
+            popupConfirmation();
         }
         //s'il n'y a pas de produit d'enregistré dans le local storage
         else{
@@ -80,6 +90,7 @@ function requestDone (response) {
             productSaveInLocalStorage.push(values_product);
             localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
             console.log(productSaveInLocalStorage);
+            popupConfirmation();
         }
     });
 }
