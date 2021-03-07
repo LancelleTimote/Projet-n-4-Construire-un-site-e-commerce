@@ -60,8 +60,8 @@ function requestDone (response) {
         };
         console.log(values_product);
 
-        //----------------------------------------Le local Storage----------------------------------------
-        //stocker la récupération des valeurs des produits dans le local storage
+        //----------------------------------------Le localStorage----------------------------------------
+        //stocker la récupération des valeurs des produits dans le localStorage
 
         //déclaration de la variable "productSaveInLocalStorage" dans laquelle on met les key et les values qui sont dans le local storage
         let productSaveInLocalStorage = JSON.parse(localStorage.getItem('cart'));
@@ -77,19 +77,23 @@ function requestDone (response) {
             }
         }
 
-        //s'il y a déjà des produits enregistrés dans le local storage
-        if (productSaveInLocalStorage) {
+        //Fonction ajouter un produit sélectionné dans le localStorage
+        const addProductLocalStorage = () => {
+            //ajout dans le tableau de l'objet avec les values choisi par l'utilisateur
             productSaveInLocalStorage.push(values_product);
+            //la transformation en format JSON et l'envoyer dans la key "cart" du localStorage
             localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-            console.log(productSaveInLocalStorage);
+        };
+
+        //s'il y a déjà des produits enregistrés dans le localStorage
+        if (productSaveInLocalStorage) {
+            addProductLocalStorage();
             popupConfirmation();
         }
-        //s'il n'y a pas de produit d'enregistré dans le local storage
+        //s'il n'y a pas de produit d'enregistré dans le localStorage
         else{
             productSaveInLocalStorage = [];
-            productSaveInLocalStorage.push(values_product);
-            localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-            console.log(productSaveInLocalStorage);
+            addProductLocalStorage();
             popupConfirmation();
         }
     });
