@@ -29,8 +29,8 @@ function requestDone (response) {
     
     let color = document.getElementById('selectColor');
     let options = response.colors;
-    for(i=0; i<options.length; i++) {
-        let opt = options[i];
+    for(j = 0; j < options.length; j++) {
+        let opt = options[j];
         let el = document.createElement('option');
         el.textContent = opt;
         el.value = opt;
@@ -56,7 +56,7 @@ function requestDone (response) {
                 picture : response.imageUrl,
                 color : colorChoice,
                 price : response.price/100+"€",
-                quantite : 1,
+                quantity : 1,
         };
         console.log(values_product);
 
@@ -66,7 +66,6 @@ function requestDone (response) {
         //déclaration de la variable "productSaveInLocalStorage" dans laquelle on met les key et les values qui sont dans le local storage
         let productSaveInLocalStorage = JSON.parse(localStorage.getItem('cart'));
         //JSON.parse pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript
-        console.log(productSaveInLocalStorage);
 
         //fonction fenêtre popup
         const popupConfirmation = () => {
@@ -86,7 +85,7 @@ function requestDone (response) {
         };
 
         //s'il y a déjà des produits enregistrés dans le localStorage
-        if (productSaveInLocalStorage) {
+        if(productSaveInLocalStorage) {
             addProductLocalStorage();
             popupConfirmation();
         }

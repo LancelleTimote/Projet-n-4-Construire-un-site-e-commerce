@@ -13,3 +13,7 @@ li {
 .card-size {
     box-sizing: content-box;
 }
+
+.pictureCart {
+    width: 400px;
+}

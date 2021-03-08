@@ -17,7 +17,7 @@ function requestDone (response) {
     let listeCartes = document.getElementById("listeCartes");
 
     //boucle parcours réponse requête
-    for (i=0; i<response.length; i++) { //for pour définir la boucle, i pour donner un indice qui commence à 0, boucle qui continue tant qu'inférieur aux réponses, puis rajoute 1 à i à chaque fois
+    for (i = 0; i < response.length; i++) { //for pour définir la boucle, i pour donner un indice qui commence à 0, boucle qui continue tant qu'inférieur aux réponses, puis rajoute 1 à i à chaque fois
         let imageUrl = response[i].imageUrl;
         let name = response[i].name;
         let description = response[i].description;
