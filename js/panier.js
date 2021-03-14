@@ -4,14 +4,16 @@ let productSaveInLocalStorage = JSON.parse(localStorage.getItem('cart'));
 console.log(productSaveInLocalStorage);
 
 //----------------------------------------L'affichage des produits du panier----------------------------------------
-//Séléction de la class où je vais injecter le code HTML
+//séléction de la class où je vais injecter le code HTML
 const cart = document.getElementById('cart');
 console.log(cart);
 
 //si le panier est vide : afficher le panier est vide
 if(productSaveInLocalStorage === null || productSaveInLocalStorage == 0) {
     const emptyCart = `
-        <td colspan="6" class="text-center">Le panier est vide.</td>
+        <tr class="text-center">
+        <th colspan="6">Le panier est vide.</th>
+        </tr>
     `;
     cart.innerHTML = emptyCart;
 }
@@ -41,21 +43,21 @@ else{
 
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
 
-//Séléction des références de tous les boutons btn-supprimer
-let btn_delete = document.querySelectorAll(".btn-delete");
-console.log(btn_delete);
+//séléction des références de tous les boutons btn-supprimer
+let btnDelete = document.querySelectorAll(".btn-delete");
+console.log(btnDelete);
 
-for(let l = 0; l < btn_delete.length; l++) {
-    btn_delete[l].addEventListener("click", (event) => {
+for(let l = 0; l < btnDelete.length; l++) {
+    btnDelete[l].addEventListener("click", (event) => {
         event.preventDefault(); //pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
 
         //séléction de l'id du produit qui va être supprimé en cliquant sur le bouton
-        let id_selection_delete = productSaveInLocalStorage[l].id;
-        console.log("id_selection_delete");
-        console.log(id_selection_delete);
+        let idSelectionDelete = productSaveInLocalStorage[l].id;
+        console.log("idSelectionDelete");
+        console.log(idSelectionDelete);
 
         //avec la méthode filter je sélectionne les éléments à garder et je supprime l'élément où le btn supprimer a été cliqué
-        productSaveInLocalStorage = productSaveInLocalStorage.filter( el => el.id !== id_selection_delete);
+        productSaveInLocalStorage = productSaveInLocalStorage.filter( el => el.id !== idSelectionDelete);
             console.log(productSaveInLocalStorage);
         
         //on envoie la variable dans le localStorage
@@ -64,6 +66,42 @@ for(let l = 0; l < btn_delete.length; l++) {
 
         //alert pour avertir que le produit a été supprimé et rechargement de la page
         alert("Ce produit a été supprimé du panier.");
+
+        //rechargement de la page
         window.location.href = "panier.html";
     })
 }
+
+//****************************************Fin de la gestion du bouton supprimer l'article****************************************
+
+//----------------------------------------Bouton pour vider entièrement le panier----------------------------------------
+//le code HTML du bouton à afficher dans la page
+const btnHtmlDeleteAllProduct = `
+<tr class="text-center">
+    <th colspan="6"><button type="button" class="btn btn-danger btn-delete-all-product">Vider le panier</button></th>
+</tr>
+`;
+console.log(btnHtmlDeleteAllProduct);
+
+//insertion du bouton dans le HTML du panier
+cart.insertAdjacentHTML("beforeend", btnHtmlDeleteAllProduct);
+
+//sélection de la référence du bouton "btn-delete-all-product"
+const btnDeleteAllProduct = document.querySelector(".btn-delete-all-product");
+console.log(btnDeleteAllProduct);
+
+//suppression de la key "cart" du localStorage pour vider entièrement le panier
+btnDeleteAllProduct.addEventListener('click', (e) => {
+    e.preventDefault; //pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+
+    //.removeItem pour vider le localStorage
+    localStorage.removeItem("cart");
+
+    //alert "Le panier a été vidé."
+    alert("Le panier a été vidé.")
+
+    //rechargement de la page
+    window.location.href = "panier.html";
+})
+
+//****************************************Fin du bouton pour vider entièrement le panier****************************************
