@@ -52,10 +52,11 @@ function requestDone (response) {
 
         //récupération des valeurs du produit
         let values_product = {
+                id: id,
                 name : response.name,
                 picture : response.imageUrl,
                 color : colorChoice,
-                price : response.price/100+"€",
+                price : response.price/100+" €",
                 quantity : 1,
         };
         console.log(values_product);
@@ -97,38 +98,3 @@ function requestDone (response) {
         }
     });
 }
-
-    // //Détecter s'il y a déjà un panier en localstorage
-    // function cartExistsInStorage () {
-    //     let cart = localStorage.getItem('cart');
-    //     if (cart === null) {
-    //         return false;
-    //     } else {
-    //         return true;
-    //     }
-    // }
-
-    // function itemPanier() {
-    // console.log("function itemPanier()");
-    //     // D'abord voit s'il y a localStorage existe ou non
-    //     if (cartExistsInStorage()) {
-    //         console.log("condition : panier existe");
-    //     } else {
-    //         console.log("condition : panier n'existe pas");
-    //     }
-    // }
-    // itemPanier();
-
-    // // Sauvegarder les informations dans l’espace local courant
-    // let add_button_elt = document.getElementById('add_to_cart');
-    // function stockage_panier () {
-    //     colorValue = document.getElementById('selectColor').value;
-    //     update_product[0].color = colorValue;
-    //     localStorage.setItem("cart", JSON.stringify(update_product));
-    // }
-
-    // add_button_elt.addEventListener("click", function(event) {
-    //     event.preventDefault();
-    //     stockage_panier ();
-    //     update_product; 
-    // })
