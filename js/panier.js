@@ -27,7 +27,7 @@ else{
             <th scope ="row" class="pictureCart"><img src='${productSaveInLocalStorage[k].picture}' alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>
             <td>${productSaveInLocalStorage[k].name}</td>
             <td>${productSaveInLocalStorage[k].color}</td>
-            <td>${productSaveInLocalStorage[k].price}</td>
+            <td>${productSaveInLocalStorage[k].price} €</td>
             <td>${productSaveInLocalStorage[k].quantity}</td>
             <td><button type="button" class="btn btn-danger btn-delete">X</button></td>
         </tr>
@@ -92,7 +92,7 @@ console.log(btnDeleteAllProduct);
 
 //suppression de la key "cart" du localStorage pour vider entièrement le panier
 btnDeleteAllProduct.addEventListener('click', (e) => {
-    e.preventDefault; //pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+    e.preventDefault(); //pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
 
     //.removeItem pour vider le localStorage
     localStorage.removeItem("cart");
@@ -105,3 +105,34 @@ btnDeleteAllProduct.addEventListener('click', (e) => {
 })
 
 //****************************************Fin du bouton pour vider entièrement le panier****************************************
+
+//----------------------------------------Le montant total du panier----------------------------------------
+//déclaration de la variable pour pouvoir y mettre les prix qui sont présents dans le panier
+let totalPriceCalcul = [];
+
+//aller chercher les prix dans le panier
+for (let m = 0; m < productSaveInLocalStorage.length; m++) {
+    let priceProductInCart = productSaveInLocalStorage[m].price;
+
+    //mettre les prix du panier dans la variable "totalPriceCalcul"
+    totalPriceCalcul.push(priceProductInCart)
+
+    console.log(totalPriceCalcul);
+}
+
+//additionner les prix qu'il y a dans le tableau de la variable prixTotalCalcul avec la méthode .reduce
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+const totalPrice = totalPriceCalcul.reduce(reducer,0);
+console.log(totalPrice);
+
+//le code HTML du prix total à afficher
+const displayTotalPriceHtml = `
+<tr class="text-center">
+    <th colspan="6">Le montant total du panier est de : ${totalPrice} €</th>
+</tr>
+`
+
+//injection html dans la page panier après le dernier enfant
+cart.insertAdjacentHTML("beforeend", displayTotalPriceHtml);
+
+//****************************************Fin du montant total panier****************************************

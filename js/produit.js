@@ -56,7 +56,7 @@ function requestDone (response) {
                 name : response.name,
                 picture : response.imageUrl,
                 color : colorChoice,
-                price : response.price/100+" €",
+                price : response.price/100,
                 quantity : 1,
         };
         console.log(values_product);
