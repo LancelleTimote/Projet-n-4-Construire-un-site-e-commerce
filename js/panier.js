@@ -1,14 +1,14 @@
-//déclaration de la variable "productSaveInLocalStorage" dans laquelle on met les key et les values qui sont dans le local storage
+//Déclaration de la variable "productSaveInLocalStorage" dans laquelle on met les key et les values qui sont dans le local storage
 let productSaveInLocalStorage = JSON.parse(localStorage.getItem('cart'));
 //JSON.parse pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript
 console.log(productSaveInLocalStorage);
 
 //----------------------------------------L'affichage des produits du panier----------------------------------------
-//séléction de la class où je vais injecter le code HTML
+//Séléction de la class où je vais injecter le code HTML
 const cart = document.getElementById('cart');
 console.log(cart);
 
-//si le panier est vide : afficher le panier est vide
+//Si le panier est vide : afficher le panier est vide
 if(productSaveInLocalStorage === null || productSaveInLocalStorage == 0) {
     const emptyCart = `
         <tr class="text-center">
@@ -17,7 +17,7 @@ if(productSaveInLocalStorage === null || productSaveInLocalStorage == 0) {
     `;
     cart.innerHTML = emptyCart;
 }
-//si le panier n'est pas vide : afficher les produits dans le localStorage
+//Si le panier n'est pas vide : afficher les produits dans le localStorage
 else{
     let structureProductCart = [];
 
@@ -34,7 +34,7 @@ else{
         `;
     }
     if(k === productSaveInLocalStorage.length) {
-        //injection HTML dans la page panier
+        //Injection HTML dans la page panier
         cart.innerHTML = structureProductCart;
     }
 }
@@ -43,31 +43,31 @@ else{
 
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
 
-//séléction des références de tous les boutons btn-supprimer
+//Séléction des références de tous les boutons btn-supprimer
 let btnDelete = document.querySelectorAll(".btn-delete");
 console.log(btnDelete);
 
 for(let l = 0; l < btnDelete.length; l++) {
     btnDelete[l].addEventListener("click", (event) => {
-        event.preventDefault(); //pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+        event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
 
-        //séléction de l'id du produit qui va être supprimé en cliquant sur le bouton
+        //Séléction de l'id du produit qui va être supprimé en cliquant sur le bouton
         let idSelectionDelete = productSaveInLocalStorage[l].id;
         console.log("idSelectionDelete");
         console.log(idSelectionDelete);
 
-        //avec la méthode filter je sélectionne les éléments à garder et je supprime l'élément où le btn supprimer a été cliqué
+        //Avec la méthode filter je sélectionne les éléments à garder et je supprime l'élément où le btn supprimer a été cliqué
         productSaveInLocalStorage = productSaveInLocalStorage.filter( el => el.id !== idSelectionDelete);
             console.log(productSaveInLocalStorage);
         
-        //on envoie la variable dans le localStorage
-        //la transformation en format JSON et l'envoyer dans la key "cart" du localStorage
+        //On envoie la variable dans le localStorage
+        //La transformation en format JSON et l'envoyer dans la key "cart" du localStorage
         localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
 
         //alert pour avertir que le produit a été supprimé et rechargement de la page
         alert("Ce produit a été supprimé du panier.");
 
-        //rechargement de la page
+        //Rechargement de la page
         window.location.href = "panier.html";
     })
 }
@@ -75,7 +75,7 @@ for(let l = 0; l < btnDelete.length; l++) {
 //****************************************Fin de la gestion du bouton supprimer l'article****************************************
 
 //----------------------------------------Bouton pour vider entièrement le panier----------------------------------------
-//le code HTML du bouton à afficher dans la page
+//Code HTML du bouton à afficher dans la page
 const btnHtmlDeleteAllProduct = `
 <tr class="text-center">
     <th colspan="6"><button type="button" class="btn btn-danger btn-delete-all-product">Vider le panier</button></th>
@@ -83,16 +83,16 @@ const btnHtmlDeleteAllProduct = `
 `;
 console.log(btnHtmlDeleteAllProduct);
 
-//insertion du bouton dans le HTML du panier
+//Insertion du bouton dans le HTML du panier
 cart.insertAdjacentHTML("beforeend", btnHtmlDeleteAllProduct);
 
-//sélection de la référence du bouton "btn-delete-all-product"
+//Sélection de la référence du bouton "btn-delete-all-product"
 const btnDeleteAllProduct = document.querySelector(".btn-delete-all-product");
 console.log(btnDeleteAllProduct);
 
-//suppression de la key "cart" du localStorage pour vider entièrement le panier
+//Suppression de la key "cart" du localStorage pour vider entièrement le panier
 btnDeleteAllProduct.addEventListener('click', (e) => {
-    e.preventDefault(); //pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+    e.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
 
     //.removeItem pour vider le localStorage
     localStorage.removeItem("cart");
@@ -100,39 +100,39 @@ btnDeleteAllProduct.addEventListener('click', (e) => {
     //alert "Le panier a été vidé."
     alert("Le panier a été vidé.")
 
-    //rechargement de la page
+    //Rechargement de la page
     window.location.href = "panier.html";
 });
 
 //****************************************Fin du bouton pour vider entièrement le panier****************************************
 
 //----------------------------------------Montant total du panier----------------------------------------
-//déclaration de la variable pour pouvoir y mettre les prix qui sont présents dans le panier
+//Déclaration de la variable pour pouvoir y mettre les prix qui sont présents dans le panier
 let totalPriceCalcul = [];
 
-//aller chercher les prix dans le panier
+//Aller chercher les prix dans le panier
 for (let m = 0; m < productSaveInLocalStorage.length; m++) {
     let priceProductInCart = productSaveInLocalStorage[m].price;
 
-    //mettre les prix du panier dans la variable "totalPriceCalcul"
+    //Mettre les prix du panier dans la variable "totalPriceCalcul"
     totalPriceCalcul.push(priceProductInCart)
 
     console.log(totalPriceCalcul);
-};
+}
 
-//additionner les prix qu'il y a dans le tableau de la variable prixTotalCalcul avec la méthode .reduce
+//Additionner les prix qu'il y a dans le tableau de la variable prixTotalCalcul avec la méthode .reduce
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 const totalPrice = totalPriceCalcul.reduce(reducer,0);
 console.log(totalPrice);
 
-//le code HTML du prix total à afficher
+//Code HTML du prix total à afficher
 const displayTotalPriceHtml = `
 <tr class="text-center">
     <th colspan="6">Le montant total du panier est de : ${totalPrice} €</th>
 </tr>
 `;
 
-//injection html dans la page panier après le dernier enfant
+//Injection html dans la page panier après le dernier enfant
 cart.insertAdjacentHTML("beforeend", displayTotalPriceHtml);
 
 //****************************************Fin du montant total panier****************************************
@@ -200,7 +200,7 @@ const displayFormHtml = () => {
     </form>
     `;
 
-    //injection HTML
+    //Injection HTML
     formPosition.insertAdjacentHTML("afterend", formStructure);
 };
 
@@ -213,41 +213,83 @@ const btnSendForm = document.querySelector("#sendForm");
 //----------AddEventListener----------
 btnSendForm.addEventListener("click", (e) => {
     e.preventDefault();
-    //Récupération des valeurs du formulaire pour les mettre dans le localStorage
-    localStorage.setItem("lastname", document.querySelector("#lastname").value);
-    localStorage.setItem("name", document.querySelector("#name").value);
-    localStorage.setItem("address", document.querySelector("#address").value);
-    localStorage.setItem("address2", document.querySelector("#address2").value);
-    localStorage.setItem("city", document.querySelector("#city").value);
-    localStorage.setItem("zipCode", document.querySelector("#zipCode").value);
-    localStorage.setItem("country", document.querySelector("#country").value);
-    localStorage.setItem("email", document.querySelector("#email").value);
-    localStorage.setItem("phone", document.querySelector("#phone").value);
 
-    //Mettre les values du formulaire dans un objet
-    const form = {
-        lastname: localStorage.getItem("lastname"),
-        name: localStorage.getItem("name"),
-        address: localStorage.getItem("address"),
-        address2: localStorage.getItem("address2"),
-        city: localStorage.getItem("city"),
-        zipCode: localStorage.getItem("zipCode"),
-        country: localStorage.getItem("country"),
-        email: localStorage.getItem("email"),
-        phone: localStorage.getItem("phone"),
-    };
+    //Création / définition d'une classe pour fabriquer l'objet dans lequel iront les values du formulaire
+    //Les values du formulaire
+    class Form {
+        constructor() {
+            this.lastname = document.querySelector("#lastname").value;
+            this.name = document.querySelector("#name").value;
+            this.address = document.querySelector("#address").value;
+            this.address2 = document.querySelector("#address2").value;
+            this.city = document.querySelector("#city").value;
+            this.zipCode = document.querySelector("#zipCode").value;
+            this.country = document.querySelector("#country").value;
+            this.email = document.querySelector("#email").value;
+            this.phone = document.querySelector("#phone").value;
+        }
+    }
 
-    console.log("form");
-    console.log(form);
+    //Appel de l'instance de class "Form" pour créer l'objet formValues
+    const formValues = new Form();
+    console.log("formValues");
+    console.log(formValues);
+
+    //Récupération des valeurs du formulaire (demander au mentor plutôt class ou ça)
+    // const formValues = {
+    //     lastname : document.querySelector("#lastname").value,
+    //     name : document.querySelector("#name").value,
+    //     address : document.querySelector("#address").value,
+    //     address2 : document.querySelector("#address2").value,
+    //     city : document.querySelector("#city").value,
+    //     zipCode : document.querySelector("#zipCode").value,
+    //     country : document.querySelector("#country").value,
+    //     email : document.querySelector("#email").value,
+    //     phone : document.querySelector("#phone").value
+    // }
+
+    //Mettre l'objet "formValues" dans le localStorage
+    localStorage.setItem("formValues", JSON.stringify(formValues));
     
     //Mettre les values du formulaire et les produits sélectionnés dans un objet à envoyer au serveur
     const toSendServer = {
         productSaveInLocalStorage,
-        form,
+        formValues,
     }
+    console.log("toSendServer");
+    console.log(toSendServer);
     
     //Envoie de l'objet "toSendServer" au serveur
 })
+
+//**********Fin addEventListener**********
+
+//----------Mettre le contenu du localStorage dans les champs du formulaire pour que ça reste----------
+
+//Prendre la key dans le localStorage et la mettre dans une variable
+const dataLocalStorage = localStorage.getItem("formValues");
+
+//Convertir la chaîne de caractère en objet javascript
+const dataLocalStorageObjet = JSON.parse(dataLocalStorage);
+
+//Mettre les values du localSotrage dans les champs du formulaire
+document.querySelector("#lastname").value = dataLocalStorageObjet.lastname;
+document.querySelector("#name").value = dataLocalStorageObjet.name;
+document.querySelector("#address").value = dataLocalStorageObjet.address;
+document.querySelector("#address2").value = dataLocalStorageObjet.address2;
+document.querySelector("#city").value = dataLocalStorageObjet.city;
+document.querySelector("#zipCode").value = dataLocalStorageObjet.zipCode;
+document.querySelector("#country").value = dataLocalStorageObjet.country;
+document.querySelector("#email").value = dataLocalStorageObjet.email;
+document.querySelector("#phone").value = dataLocalStorageObjet.phone;
+
+console.log("dataLocalStorageObjet");
+console.log(dataLocalStorageObjet);
+
+//****************************************Fin du formulaire de commande****************************************
+
+
+
 
 
 /* <tr class="text-center">
