@@ -230,11 +230,6 @@ btnSendForm.addEventListener("click", (e) => {
         }
     }
 
-    //Appel de l'instance de class "Form" pour créer l'objet formValues
-    const formValues = new Form();
-    console.log("formValues");
-    console.log(formValues);
-
     //Récupération des valeurs du formulaire (demander au mentor plutôt class ou ça)
     // const formValues = {
     //     lastname : document.querySelector("#lastname").value,
@@ -248,8 +243,67 @@ btnSendForm.addEventListener("click", (e) => {
     //     phone : document.querySelector("#phone").value
     // }
 
-    //Mettre l'objet "formValues" dans le localStorage
-    localStorage.setItem("formValues", JSON.stringify(formValues));
+    //Appel de l'instance de class "Form" pour créer l'objet formValues
+    const formValues = new Form();
+    console.log("formValues");
+    console.log(formValues);
+
+    //----------Gestion validation du formulaire----------
+
+    const textAlert = (value) => {
+        return `${value} : les chiffres et les symboles ne sont pas autorisés. \nNe pas dépasser 20 caractères, et avoir au minimum 3 caractères.`;
+    }
+
+    const regExLastnameNameCountry = (value) => {
+        return /^[A-Za-z]{3,20}$/.test(value);
+    }
+
+    const regExZipCode = (value) => {
+        return /^[0-9]{5}$/.test(value);
+    }
+
+    function lastNameControl() {
+        //Contrôle de la validité du nom
+        const theLastName = formValues.lastname;
+        if(regExLastnameNameCountry(theLastName)) {
+            return true;
+        }else{
+            alert(textAlert("Nom"));
+            return false;
+        }
+    }
+
+    function nameControl() {
+        //Contrôle de la validité du prénom
+        const theName = formValues.name;
+        if(regExLastnameNameCountry(theName)) {
+            return true;
+        }else{
+            alert(textAlert("Prénom"));
+            return false;
+        }
+    }
+
+    function zipCodeControl() {
+        //Contrôle de la validité du code postal
+        const theZipCode = formValues.zipCode;
+        if(regExZipCode(theZipCode)) {
+            return true;
+        }else{
+            alert("Code postal : doit être composé de 5 chiffres.");
+            return false;
+        }
+    }
+
+    //Contrôle validité formulaire avant envoie dans le localStorage
+    if(lastNameControl() && nameControl() && zipCodeControl()) {
+        //Mettre l'objet "formValues" dans le localStorage
+        localStorage.setItem("formValues", JSON.stringify(formValues));
+    }else{
+        alert("Veuillez remplir correctement le formulaire.");
+    }
+
+    //**********Fin gestion validation formulaire**********
     
     //Mettre les values du formulaire et les produits sélectionnés dans un objet à envoyer au serveur
     const toSendServer = {
@@ -272,16 +326,20 @@ const dataLocalStorage = localStorage.getItem("formValues");
 //Convertir la chaîne de caractère en objet javascript
 const dataLocalStorageObjet = JSON.parse(dataLocalStorage);
 
-//Mettre les values du localSotrage dans les champs du formulaire
-document.querySelector("#lastname").value = dataLocalStorageObjet.lastname;
-document.querySelector("#name").value = dataLocalStorageObjet.name;
-document.querySelector("#address").value = dataLocalStorageObjet.address;
-document.querySelector("#address2").value = dataLocalStorageObjet.address2;
-document.querySelector("#city").value = dataLocalStorageObjet.city;
-document.querySelector("#zipCode").value = dataLocalStorageObjet.zipCode;
-document.querySelector("#country").value = dataLocalStorageObjet.country;
-document.querySelector("#email").value = dataLocalStorageObjet.email;
-document.querySelector("#phone").value = dataLocalStorageObjet.phone;
+//Fonction pour que le champ du formulaire soit rempli par les données du localStorage si elles existent
+function fillInputWithLocalStorage(input) {
+    document.querySelector(`#${input}`).value = dataLocalStorageObjet[input];
+}
+
+fillInputWithLocalStorage("lastname");
+fillInputWithLocalStorage("name");
+fillInputWithLocalStorage("address");
+fillInputWithLocalStorage("address2");
+fillInputWithLocalStorage("city");
+fillInputWithLocalStorage("zipCode");
+fillInputWithLocalStorage("country");
+fillInputWithLocalStorage("email");
+fillInputWithLocalStorage("phone");
 
 console.log("dataLocalStorageObjet");
 console.log(dataLocalStorageObjet);
