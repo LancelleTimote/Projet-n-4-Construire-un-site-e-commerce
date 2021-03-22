@@ -5,20 +5,20 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css" />
         <!-- Primary Meta Tags -->
-        <title>Oriteddy - Produits</title>
-        <meta name="title" content="Oriteddy - Produit 1">
-        <meta name="description" content="">
+        <title>Oriteddy - Informations produits</title>
+        <meta name="title" content="Oriteddy - Informations produits">
+        <meta name="description" content="Informations sur les produits de l'entreprise Oriteddy.">
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
-        <meta property="og:url" content="https://lancelletimote.github.io/TimoteLancelle_5_18012021/produit.html">
-        <meta property="og:title" content="Oriteddy - Produit">
-        <meta property="og:description" content="">
+        <meta property="og:url" content="https://lancelletimote.github.io/TimoteLancelle_5_18012021/informations_produits.html">
+        <meta property="og:title" content="Oriteddy - Informations produits">
+        <meta property="og:description" content="Informations sur les produits de l'entreprise Oriteddy.">
         <meta property="og:image" content="https://i.ibb.co/Wf8v0vQ/logo-metatags.png">
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:url" content="https://lancelletimote.github.io/TimoteLancelle_5_18012021/produit.html">
-        <meta property="twitter:title" content="Oriteddy - Produit">
-        <meta property="twitter:description" content="">
+        <meta property="twitter:url" content="https://lancelletimote.github.io/TimoteLancelle_5_18012021/informations_produits.html">
+        <meta property="twitter:title" content="Oriteddy - Informations produits">
+        <meta property="twitter:description" content="Informations sur les produits de l'entreprise Oriteddy.">
         <meta property="twitter:image" content="https://i.ibb.co/Wf8v0vQ/logo-metatags.png">
     </head>
 
@@ -45,13 +45,13 @@
                                 <a class="nav-link text-success" href="index.html">Accueil</a>
                             </li>
                             <li class="nav-item mx-3">
-                                <a class="nav-link text-success" href="informations_produits.html">Informations produits</a>
+                                <a class="nav-link active text-success" href="product_information.html">Informations produits</a>
                             </li>
                             <li class="nav-item mx-3">
                                 <a class="nav-link text-success" href="album.html">Album</a>
                             </li>
                             <li class="nav-item mx-3">
-                                <a class="nav-link text-success" href="panier.html">Panier</a>
+                                <a class="nav-link text-success" href="cart.html">Panier</a>
                             </li>
                         </ul>
                     </div>
@@ -59,22 +59,29 @@
             </nav>
         </header>
         <main class="container">
-            <section class="row">
-                <div class="col">
-                    <img src='' alt="Photo ours en peluche" id="picture" class="w-75 d-block mx-auto border border-success shadow">
-                </div>
-                <div class="col">
-                    <h2 id="name"></h2>
-                    <p id="description"></p>
-                    <label>Choix de la couleur :
-                        <select id="selectColor" class="form-select">
-                        </select>
-                    </label>
-                    <p id="price"></p>
-                    <a id="add_to_cart" class="btn btn-success" role="button">Ajouter au panier</a>
-                    <a href="index.html" class="btn btn-success" role="button">Retour en arrière</a>
-                </div>
-            </section>
+            <div class="row card-deck">
+                <section class="card border-success shadow mb-2">
+                    <img src="pictures/card/card_1.jpg" alt="Photo d'un ours en peluche, posé assis dehors sur le sol." class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Qualité</h5>
+                        <p class="card-text">Chaque ours en peluche est d'une qualité sans pareil.</p>
+                    </div>
+                </section>
+                <section class="card border-success shadow mb-2">
+                    <img src="pictures/card/card_2.jpg" alt="Photo d'un ours en peluche, posé assis dehors sur une planche en hauteur." class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Made in France</h5>
+                        <p class="card-text">Des matières premières, jusqu'à la chaîne de production, tout se passe en France.</p>
+                    </div>
+                </section>
+                <section class="card border-success shadow mb-2">
+                    <img src="pictures/card/card_3.jpg" alt="Photo d'un ours en peluche posé assis sur l'herbe." class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Respectueux de l'environnement.</h5>
+                        <p class="card-text">La conception de nos ours en peluche respecte l'environnement.</p>
+                    </div>
+                </section>
+            </div>
         </main>
         <footer class="container mt-5">
             <nav class="row navbar navbar-expand-lg navbar-light bg-light my-4 py-3">
@@ -85,10 +92,10 @@
                     <div id="navbarContent" class="collapse navbar-collapse">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item mx-3">
-                                <a class="nav-link text-success" href="propos.html">À propos</a>
+                                <a class="nav-link text-success" href="about.html">À propos</a>
                             </li>
                             <li class="nav-item mx-3">
-                                <a class="nav-link text-success" href="mentions_legales.html">Mentions légales</a>
+                                <a class="nav-link text-success" href="legal_notice.html">Mentions légales</a>
                             </li>
                             <li class="nav-item mx-3">
                                 <a class="nav-link text-success" href="contact.html">Contact</a>
@@ -101,6 +108,5 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script src="js/produit.js" async></script>
     </body>
 </html>

@@ -44,33 +44,35 @@ else{
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
 
 //Séléction des références de tous les boutons btn-supprimer
-let btnDelete = document.querySelectorAll(".btn-delete");
+const btnDelete = document.querySelectorAll(".btn-delete");
 console.log(btnDelete);
 
-for(let l = 0; l < btnDelete.length; l++) {
-    btnDelete[l].addEventListener("click", (event) => {
-        event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
 
-        //Séléction de l'id du produit qui va être supprimé en cliquant sur le bouton
-        let idSelectionDelete = productSaveInLocalStorage[l].id;
-        console.log("idSelectionDelete");
-        console.log(idSelectionDelete);
 
-        //Avec la méthode filter je sélectionne les éléments à garder et je supprime l'élément où le btn supprimer a été cliqué
-        productSaveInLocalStorage = productSaveInLocalStorage.filter( el => el.id !== idSelectionDelete);
-            console.log(productSaveInLocalStorage);
+// for(let l = 0; l < btnDelete.length; l++) {
+//     btnDelete[l].addEventListener("click", (event) => {
+//         event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+
+//         //Séléction de l'id du produit qui va être supprimé en cliquant sur le bouton
+//         let idSelectionDelete = productSaveInLocalStorage[l].id;
+//         console.log("idSelectionDelete");
+//         console.log(idSelectionDelete);
+
+//         //Avec la méthode filter je sélectionne les éléments à garder et je supprime l'élément où le btn supprimer a été cliqué
+//         productSaveInLocalStorage = productSaveInLocalStorage.filter( el => el.id !== idSelectionDelete);
+//             console.log(productSaveInLocalStorage);
         
-        //On envoie la variable dans le localStorage
-        //La transformation en format JSON et l'envoyer dans la key "cart" du localStorage
-        localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+//         //On envoie la variable dans le localStorage
+//         //La transformation en format JSON et l'envoyer dans la key "cart" du localStorage
+//         localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
 
-        //alert pour avertir que le produit a été supprimé et rechargement de la page
-        alert("Ce produit a été supprimé du panier.");
+//         //alert pour avertir que le produit a été supprimé et rechargement de la page
+//         alert("Ce produit a été supprimé du panier.");
 
-        //Rechargement de la page
-        window.location.href = "panier.html";
-    })
-}
+//         //Rechargement de la page
+//         window.location.href = "cart.html";
+//     })
+// }
 
 //****************************************Fin de la gestion du bouton supprimer l'article****************************************
 
@@ -101,7 +103,7 @@ btnDeleteAllProduct.addEventListener('click', (e) => {
     alert("Le panier a été vidé.")
 
     //Rechargement de la page
-    window.location.href = "panier.html";
+    window.location.href = "cart.html";
 });
 
 //****************************************Fin du bouton pour vider entièrement le panier****************************************
@@ -391,6 +393,6 @@ console.log(dataLocalStorageObjet);
 //         alert("Ce produit a été supprimé du panier.");
 
 //         //rechargement de la page
-//         window.location.href = "panier.html";
+//         window.location.href = "cart.html";
 //     });
 // };

@@ -31,7 +31,7 @@ function requestDone (response) {
         +'<div class="card-body">'
             +'<h5 class="card-title">'+name+'</h5>'
             +'<p class="card-text">'+description+'</p>'
-            +'<a href="produit.html?id='+id+'" class="btn btn-success" role="button">Détails</a>'
+            +'<a href="product.html?id='+id+'" class="btn btn-success" role="button">Détails</a>'
         +'</div>'
         +'</div>';
 
