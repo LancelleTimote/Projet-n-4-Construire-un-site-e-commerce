@@ -27,8 +27,8 @@ else{
             <th scope ="row" class="pictureCart"><img src='${productSaveInLocalStorage[k].picture}' alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>
             <td>${productSaveInLocalStorage[k].name}</td>
             <td>${productSaveInLocalStorage[k].color}</td>
-            <td>${productSaveInLocalStorage[k].price} €</td>
-            <td>${productSaveInLocalStorage[k].quantity}</td>
+            <td>${productSaveInLocalStorage[k].price*productSaveInLocalStorage[k].quantity} €</td>
+            <td><button type="button" class="btn btn-danger btn-less">-</button> ${productSaveInLocalStorage[k].quantity} <button type="button" class="btn btn-success btn-more">+</button></td>
             <td><button type="button" class="btn btn-danger btn-delete">X</button></td>
         </tr>
         `;
@@ -41,11 +41,36 @@ else{
 
 //****************************************Fin de l'affichage des produits du panier****************************************
 
+//----------------------------------------Gestion du bouton augmenter et diminuer les quantités d'un article dans le panier----------------------------------------
+
+
+
+//****************************************Fin de la gestion du bouton augmenter et diminuer les quantités d'un article dans le panier****************************************
+
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
 
-//Séléction des références de tous les boutons btn-supprimer
-const btnDelete = document.querySelectorAll(".btn-delete");
+//séléction des références de tous les boutons btn-supprimer
+let btnDelete = document.querySelectorAll(".btn-delete");
 console.log(btnDelete);
+
+for(let l = 0; l < btnDelete.length; l++) {
+    btnDelete[l].addEventListener("click", function(event) {
+        event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+
+        // let btnDeleteClicked = event.target;
+        // btnDeleteClicked.parentElement.remove();
+        
+        // //On envoie la variable dans le localStorage
+        // //La transformation en format JSON et l'envoyer dans la key "cart" du localStorage
+        // localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+
+        //alert pour avertir que le produit a été supprimé et rechargement de la page
+        alert("Ce produit a été supprimé du panier.");
+
+        //Rechargement de la page
+        window.location.href = "cart.html";
+    })
+}
 
 
 
@@ -114,7 +139,7 @@ let totalPriceCalcul = [];
 
 //Aller chercher les prix dans le panier
 for (let m = 0; m < productSaveInLocalStorage.length; m++) {
-    let priceProductInCart = productSaveInLocalStorage[m].price;
+    let priceProductInCart = productSaveInLocalStorage[m].price*productSaveInLocalStorage[m].quantity;
 
     //Mettre les prix du panier dans la variable "totalPriceCalcul"
     totalPriceCalcul.push(priceProductInCart)
@@ -150,49 +175,49 @@ const displayFormHtml = () => {
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="lastname">Nom :</label>
-                <input name="lastname" type="text" id="lastname" class="form-control" minlength="2" maxlength="30" placeholder="Dupont">
+                <input name="lastname" type="text" id="lastname" class="form-control" minlength="2" maxlength="30" placeholder="exemple : Dupont">
             </div>
             <div class="form-group col-md-6">
                 <label for="name">Prénom :</label>
-                <input name="name" type="text" id="name" class="form-control" minlength="2" maxlength="30" placeholder="John">
+                <input name="name" type="text" id="name" class="form-control" minlength="2" maxlength="30" placeholder="exemple : John">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col">
                 <label for="address">Adresse :</label>
-                <input name="address" type="text" id="address" class="form-control" placeholder="14 rue des fleurs">
+                <input name="address" type="text" id="address" class="form-control" placeholder="exemple : 14 rue des fleurs">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col">
                 <label for="address2">Compléments d'adresse :</label>
-                <input name="address2" type="text" id="address2" class="form-control" placeholder="Numéro bâtiment, appartement, etc...">
+                <input name="address2" type="text" id="address2" class="form-control" placeholder="exemple : numéro bâtiment, appartement, etc...">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="city">Ville :</label>
-                <input name="city" type="text" id="city" class="form-control" placeholder="Paris">
+                <input name="city" type="text" id="city" class="form-control" placeholder="exemple : Paris">
             </div>
             <div class="form-group col-md-6">
                 <label for="zipCode">Code postal :</label>
-                <input name="zipCode" type="number" id="zipCode" class="form-control" placeholder="75680">
+                <input name="zipCode" type="number" id="zipCode" class="form-control" placeholder="exemple : 75680">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col">
                 <label for="country">Pays :</label>
-                <input name="country" type="text" id="country" class="form-control" placeholder="France">
+                <input name="country" type="text" id="country" class="form-control" placeholder="exemple : France">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="email">Mail :</label>
-                <input name="email" type="text" id="email" class="form-control" placeholder="oriteddy@orinoco.com" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,63}$">
+                <input name="email" type="text" id="email" class="form-control" placeholder="exemple : oriteddy@orinoco.com">
             </div>
             <div class="form-group col-md-6">
                 <label for="phone">Téléphone :</label>
-                <input name="phone" type="tel" id="phone" class="form-control" placeholder="07 53 85 12 39">
+                <input name="phone" type="tel" id="phone" class="form-control" placeholder="exemple : 0753851239">
             </div>
         </div>
         <div class="text-center">
@@ -212,7 +237,7 @@ displayFormHtml();
 //Séléction du bouton envoyer le formulaire
 const btnSendForm = document.querySelector("#sendForm");
 
-//----------AddEventListener----------
+//--------------------AddEventListener--------------------
 btnSendForm.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -232,45 +257,29 @@ btnSendForm.addEventListener("click", (e) => {
         }
     }
 
-    //Récupération des valeurs du formulaire (demander au mentor plutôt class ou ça)
-    // const formValues = {
-    //     lastname : document.querySelector("#lastname").value,
-    //     name : document.querySelector("#name").value,
-    //     address : document.querySelector("#address").value,
-    //     address2 : document.querySelector("#address2").value,
-    //     city : document.querySelector("#city").value,
-    //     zipCode : document.querySelector("#zipCode").value,
-    //     country : document.querySelector("#country").value,
-    //     email : document.querySelector("#email").value,
-    //     phone : document.querySelector("#phone").value
-    // }
-
     //Appel de l'instance de class "Form" pour créer l'objet formValues
     const formValues = new Form();
     console.log("formValues");
     console.log(formValues);
 
-    //----------Gestion validation du formulaire----------
+    //--------------------Gestion validation du formulaire--------------------
 
+    //----------Gestion des regex et des alertes----------
     const textAlert = (value) => {
-        return `${value} : les chiffres et les symboles ne sont pas autorisés. \nNe pas dépasser 20 caractères, et avoir au minimum 3 caractères.`;
+        return `${value} : veuillez entrer une valeur valide.`;
     }
 
-    const regExLastnameNameCountry = (value) => {
-        return /^[A-Za-z]{3,20}$/.test(value);
-    }
-
-    const regExZipCode = (value) => {
-        return /^[0-9]{5}$/.test(value);
-    }
+    const regExLastnameNameCityCountry = (value) => {
+        return /^\S[a-z ,.'à-ÿ-]+$/.test(value);    //la méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle.
+    }                                               //elle retourne true en succès, et false en cas contraire (booléen).
 
     function lastNameControl() {
         //Contrôle de la validité du nom
         const theLastName = formValues.lastname;
-        if(regExLastnameNameCountry(theLastName)) {
+        if(regExLastnameNameCityCountry(theLastName)) {
             return true;
         }else{
-            alert(textAlert("Nom"));
+            alert(textAlert("Nom incorrect"));
             return false;
         }
     }
@@ -278,10 +287,43 @@ btnSendForm.addEventListener("click", (e) => {
     function nameControl() {
         //Contrôle de la validité du prénom
         const theName = formValues.name;
-        if(regExLastnameNameCountry(theName)) {
+        if(regExLastnameNameCityCountry(theName)) {
             return true;
         }else{
-            alert(textAlert("Prénom"));
+            alert(textAlert("Prénom incorrect"));
+            return false;
+        }
+    }
+
+    function addressControl() {
+        //Contrôle de la validité de l'adresse
+        const theAddress = formValues.address;
+        if(/^[0-9]{1,5}[A-z0-9 'à-ÿ-]{5,30}$/.test(theAddress)) {
+            return true;
+        }else{
+            alert("Addresse incorrect : veuillez entrer une adresse valide.");
+            return false;
+        }
+    }
+
+    function address2Control() {
+        //Contrôle de la validité des compléments d'adresse
+        const theAddress2 = formValues.address2;
+        if(/^[A-z0-9 'à-ÿ-]{5,30}$/.test(theAddress2)) {
+            return true;
+        }else{
+            alert("Compléments d'adresse incorrect : veuillez entrer des valeurs valides.");
+            return false;
+        }
+    }
+
+    function cityControl() {
+        //Contrôle de la validité de la ville
+        const theCity = formValues.city;
+        if(regExLastnameNameCityCountry(theCity)) {
+            return true;
+        }else{
+            alert(textAlert("Ville incorrect"));
             return false;
         }
     }
@@ -289,23 +331,58 @@ btnSendForm.addEventListener("click", (e) => {
     function zipCodeControl() {
         //Contrôle de la validité du code postal
         const theZipCode = formValues.zipCode;
-        if(regExZipCode(theZipCode)) {
+        if(/^[0-9]{5}$/.test(theZipCode)) {
             return true;
         }else{
-            alert("Code postal : doit être composé de 5 chiffres.");
+            alert("Code postal incorrect : doit être composé de 5 chiffres.");
             return false;
         }
     }
 
+    function countryControl() {
+        //Contrôle de la validité du pays
+        const theCountry = formValues.country;
+        if(regExLastnameNameCityCountry(theCountry)) {
+            return true;
+        }else{
+            alert(textAlert("Pays incorrect"));
+            return false;
+        }
+    }
+
+    function emailControl() {
+        //Contrôle de la validité de l'email
+        const theEmail = formValues.email;
+        if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(theEmail)) {
+            return true;
+        }else{
+            alert("Email incorrect : veuillez entrer un email valide.");
+            return false;
+        }
+    }
+
+    function phoneControl() {
+        //Contrôle de la validité du téléphone
+        const thePhone = formValues.phone;
+        if(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/.test(thePhone)) {
+            return true;
+        }else{
+            alert("Téléphone incorrect : veuillez entrer un numéro de téléphone valide.");
+            return false;
+        }
+    }
+
+    //**********Fin de la gestion des regex et des alertes**********
+
     //Contrôle validité formulaire avant envoie dans le localStorage
-    if(lastNameControl() && nameControl() && zipCodeControl()) {
+    if(lastNameControl() && nameControl() && addressControl() && address2Control() && cityControl() && zipCodeControl() && countryControl() && emailControl() && phoneControl()) {
         //Mettre l'objet "formValues" dans le localStorage
         localStorage.setItem("formValues", JSON.stringify(formValues));
     }else{
         alert("Veuillez remplir correctement le formulaire.");
     }
 
-    //**********Fin gestion validation formulaire**********
+    //********************Fin gestion validation formulaire********************
     
     //Mettre les values du formulaire et les produits sélectionnés dans un objet à envoyer au serveur
     const toSendServer = {
@@ -318,7 +395,7 @@ btnSendForm.addEventListener("click", (e) => {
     //Envoie de l'objet "toSendServer" au serveur
 })
 
-//**********Fin addEventListener**********
+//********************Fin addEventListener********************
 
 //----------Mettre le contenu du localStorage dans les champs du formulaire pour que ça reste----------
 
