@@ -28,7 +28,7 @@ else{
             <td>${productSaveInLocalStorage[k].name}</td>
             <td>${productSaveInLocalStorage[k].color}</td>
             <td>${productSaveInLocalStorage[k].price*productSaveInLocalStorage[k].quantity} €</td>
-            <td><button type="button" class="btn btn-danger btn-less">-</button> ${productSaveInLocalStorage[k].quantity} <button type="button" class="btn btn-success btn-more">+</button></td>
+            <td><button type="button" class="btn btn-danger btn-decrease">-</button> ${productSaveInLocalStorage[k].quantity} <button type="button" class="btn btn-success btn-increase">+</button></td>
             <td><button type="button" class="btn btn-danger btn-delete">X</button></td>
         </tr>
         `;
@@ -42,37 +42,44 @@ else{
 //****************************************Fin de l'affichage des produits du panier****************************************
 
 //----------------------------------------Gestion du bouton augmenter et diminuer les quantités d'un article dans le panier----------------------------------------
+//  const increaseItem = document.querySelectorAll(".btn-increase");
+//  increaseItem.forEach((btn) => {
+//      btn.addEventListener('click', e => {
+//          addOneItem(e, productSaveInLocalStorage);
+//      });
+//  });
 
-
+// function addOneItem(e, productSaveInLocalStorage) {
+//     let index = e.target.classList[1].slice(-1);
+//     productSaveInLocalStorage[index].quantity++;
+//     sessionStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+// };
 
 //****************************************Fin de la gestion du bouton augmenter et diminuer les quantités d'un article dans le panier****************************************
 
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
 
-//séléction des références de tous les boutons btn-supprimer
-let btnDelete = document.querySelectorAll(".btn-delete");
-console.log(btnDelete);
+// function deleteItemSelect(e, productSaveInLocalStorage) {
+//     let index = e.target.classList[1].slice(-1);
+//     productSaveInLocalStorage.splice(index, 1);
+//     sessionStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
 
-for(let l = 0; l < btnDelete.length; l++) {
-    btnDelete[l].addEventListener("click", function(event) {
-        event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+//     if (productSaveInLocalStorage.length === 0) {
+//         sessionStorage.removeItem('cart');
+//     }
+// }
+// console.log("deleteItemSelect");
+// console.log(deleteItemSelect());
 
-        // let btnDeleteClicked = event.target;
-        // btnDeleteClicked.parentElement.remove();
-        
-        // //On envoie la variable dans le localStorage
-        // //La transformation en format JSON et l'envoyer dans la key "cart" du localStorage
-        // localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+// //séléction des références de tous les boutons btn-supprimer
+// const btnDelete = document.querySelectorAll(".btn-delete");
+// console.log(btnDelete);
 
-        //alert pour avertir que le produit a été supprimé et rechargement de la page
-        alert("Ce produit a été supprimé du panier.");
-
-        //Rechargement de la page
-        window.location.href = "cart.html";
-    })
-}
-
-
+// btnDelete.forEach((btn) => {
+//     btn.addEventListener('click', e => {
+//         deleteItemSelect(e, productSaveInLocalStorage);
+//     });
+// });
 
 // for(let l = 0; l < btnDelete.length; l++) {
 //     btnDelete[l].addEventListener("click", (event) => {
@@ -298,7 +305,7 @@ btnSendForm.addEventListener("click", (e) => {
     function addressControl() {
         //Contrôle de la validité de l'adresse
         const theAddress = formValues.address;
-        if(/^[0-9]{1,5}[A-z0-9 'à-ÿ-]{5,30}$/.test(theAddress)) {
+        if(/^[0-9]{1,5}[A-z0-9 'à-ÿ-]{5,40}$/.test(theAddress)) {
             return true;
         }else{
             alert("Addresse incorrect : veuillez entrer une adresse valide.");
@@ -388,6 +395,7 @@ btnSendForm.addEventListener("click", (e) => {
     const toSendServer = {
         productSaveInLocalStorage,
         formValues,
+        totalPrice,
     }
     console.log("toSendServer");
     console.log(toSendServer);
