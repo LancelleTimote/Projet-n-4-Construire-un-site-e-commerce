@@ -47,13 +47,15 @@ function requestDone (response) {
 
     //----------------------------------------addEventListener --- Écouter le bouton et envoyer au panier
     sendCart.addEventListener("click", (event) => {
+        console.log("clic bouton");
         event.preventDefault();
 
         //Sélection de la couleur
         const colorChoice = selectColor.value;
 
         //Récupération des valeurs du produit
-        let values_product = {
+        let values_product = null;
+        values_product = {
                 id: id,
                 name : response.name,
                 picture : response.imageUrl,
@@ -61,7 +63,7 @@ function requestDone (response) {
                 price : response.price/100,
                 quantity : 1,
         };
-        console.log(values_product);
+        // console.log(values_product);
 
         //----------------------------------------localStorage----------------------------------------
         //Stocker la récupération des valeurs des produits dans le localStorage
@@ -80,17 +82,38 @@ function requestDone (response) {
         }
 
         //S'il y a déjà des produits enregistrés dans le localStorage
+        console.log("values_product :");
+        console.log(values_product);
         if(productSaveInLocalStorage) {
+            console.log("productSaveInLocalStorage :");
+            console.log(productSaveInLocalStorage);
+            let productProceed = false;
             for(x = 0; x < productSaveInLocalStorage.length; x++) {
+                console.log(productSaveInLocalStorage[x].id);
+                console.log(productSaveInLocalStorage[x].name);
+                console.log(productSaveInLocalStorage[x].color);
                 if(values_product.id === productSaveInLocalStorage[x].id && values_product.color === productSaveInLocalStorage[x].color) {
-                    
+                    console.log("produits identique");
+                    console.log(productSaveInLocalStorage[x]);
+                    //déclarer les 2 quantités pour ensuite pouvoir les ajouter
+                    // productSaveInLocalStorage[x].quantity = productSaveInLocalStorage[x].quantity += 1;
+                    console.log(productSaveInLocalStorage[x].quantity);
+                    productSaveInLocalStorage[x].quantity +=1;
+                    console.log(productSaveInLocalStorage[x].quantity);
+                    //assigner à cette entrée du localStorage la nouvelle quantité
+    
+                    productProceed = true;
                 }else{
+                    console.log("produits différents");
                     //Ajout dans le tableau de l'objet avec les values choisi par l'utilisateur
                     productSaveInLocalStorage.push(values_product);
                 }
                 //Transformation en format JSON et l'envoyer dans la key "cart" du localStorage
                 localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-                popupConfirmation();
+                if(productProceed) {
+                    x = productSaveInLocalStorage.length;
+                }
+                // popupConfirmation();
             }
         }
         //S'il n'y a pas de produit enregistré dans le localStorage
@@ -100,7 +123,7 @@ function requestDone (response) {
             productSaveInLocalStorage.push(values_product);
             //Transformation en format JSON et l'envoyer dans la key "cart" du localStorage
             localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-            popupConfirmation();
+            // popupConfirmation();
         }
     });
 }

@@ -42,6 +42,16 @@ else{
 //****************************************Fin de l'affichage des produits du panier****************************************
 
 //----------------------------------------Gestion du bouton augmenter et diminuer les quantités d'un article dans le panier----------------------------------------
+const btnIncrease = document.querySelector(".btn-increase");
+console.log("btnIncrease :");
+console.log(btnIncrease);
+
+// btnIncrease.addEventListener('click', (e) => {
+//     e.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+
+// });
+
+
 //  const increaseItem = document.querySelectorAll(".btn-increase");
 //  increaseItem.forEach((btn) => {
 //      btn.addEventListener('click', e => {
@@ -391,7 +401,7 @@ btnSendForm.addEventListener("click", (e) => {
 
     //********************Fin gestion validation formulaire********************
     
-    //Mettre les values du formulaire et les produits sélectionnés dans un objet à envoyer au serveur
+    //Mettre les values du formulaire, les produits sélectionnés, et le total du panier dans un objet à envoyer au serveur
     const toSendServer = {
         productSaveInLocalStorage,
         formValues,
@@ -400,7 +410,18 @@ btnSendForm.addEventListener("click", (e) => {
     console.log("toSendServer");
     console.log(toSendServer);
     
-    //Envoie de l'objet "toSendServer" au serveur
+    //Requête POST, envoie de l'objet "toSendServer" au serveur
+    // function postOrder(toSendServer) {
+    //     fetch("http://localhost:3000/api/teddies/order", {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         mode:'cors',
+    //         body: JSON.stringify(toSendServer),
+    //     })
+    // }
+    // postOrder(toSendServer);
 })
 
 //********************Fin addEventListener********************
