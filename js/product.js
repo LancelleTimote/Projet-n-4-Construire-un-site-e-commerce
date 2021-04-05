@@ -47,7 +47,6 @@ function requestDone (response) {
 
     //----------------------------------------addEventListener --- Écouter le bouton et envoyer au panier
     sendCart.addEventListener("click", (event) => {
-        console.log("clic bouton");
         event.preventDefault();
 
         //Sélection de la couleur
@@ -63,7 +62,7 @@ function requestDone (response) {
                 price : response.price/100,
                 quantity : 1,
         };
-        // console.log(values_product);
+        console.log(values_product);
 
         //----------------------------------------localStorage----------------------------------------
         //Stocker la récupération des valeurs des produits dans le localStorage
@@ -82,71 +81,44 @@ function requestDone (response) {
         }
 
         //S'il y a déjà des produits enregistrés dans le localStorage
-        console.log("values_product :");
-        console.log(values_product);
         if(productSaveInLocalStorage) {
-            console.log("productSaveInLocalStorage :");
-            console.log(productSaveInLocalStorage);
-            let productProceed = false;
+            console.log("Un panier existe");
+            let productFindInCart = false;
+            let productIdInCart = null;
+            console.log("On parcourt le panier");
             for(x = 0; x < productSaveInLocalStorage.length; x++) {
-                console.log(productSaveInLocalStorage[x].id);
-                console.log(productSaveInLocalStorage[x].name);
-                console.log(productSaveInLocalStorage[x].color);
+                console.log("item du panier #"+x+" ("+productSaveInLocalStorage[x].name+")");
                 if(values_product.id === productSaveInLocalStorage[x].id && values_product.color === productSaveInLocalStorage[x].color) {
-                    console.log("produits identique");
-                    console.log(productSaveInLocalStorage[x]);
-                    //déclarer les 2 quantités pour ensuite pouvoir les ajouter
-                    // productSaveInLocalStorage[x].quantity = productSaveInLocalStorage[x].quantity += 1;
-                    console.log(productSaveInLocalStorage[x].quantity);
-                    productSaveInLocalStorage[x].quantity +=1;
-                    console.log(productSaveInLocalStorage[x].quantity);
-                    //assigner à cette entrée du localStorage la nouvelle quantité
-    
-                    productProceed = true;
+                    console.log("produit du panier = produit cliqué");
+                    productFindInCart = true;
+                    productIdInCart = x;
                 }else{
-                    console.log("produits différents");
-                    //Ajout dans le tableau de l'objet avec les values choisi par l'utilisateur
-                    productSaveInLocalStorage.push(values_product);
+                    console.log("produit du panier != produit cliqué");
                 }
-                //Transformation en format JSON et l'envoyer dans la key "cart" du localStorage
-                localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-                if(productProceed) {
-                    x = productSaveInLocalStorage.length;
-                }
-                // popupConfirmation();
             }
+            //si le produit existe dans le panier
+            if(productFindInCart) {
+                //on ajoute 1 à la quantité du produit
+                console.log("on ajoute 1 à la quantité du produit");
+                productSaveInLocalStorage[productIdInCart].quantity += 1;
+            //si le produit n'existe pas dans le panier
+            }else{
+                //Ajout dans le tableau de l'objet avec les values choisi par l'utilisateur
+                console.log('On push values_product');
+                productSaveInLocalStorage.push(values_product);
+            }
+            popupConfirmation();
         }
         //S'il n'y a pas de produit enregistré dans le localStorage
         else{
             productSaveInLocalStorage = [];
             //Ajout dans le tableau de l'objet avec les values choisi par l'utilisateur
             productSaveInLocalStorage.push(values_product);
-            //Transformation en format JSON et l'envoyer dans la key "cart" du localStorage
-            localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-            // popupConfirmation();
+            popupConfirmation();
         }
+        //Transformation en format JSON et l'envoyer dans la key "cart" du localStorage
+        localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
     });
 }
 
 //****************************************Fin de la fonction succès requête****************************************
-
-
-// //Fonction ajouter un produit sélectionné dans le localStorage
-// const addProductLocalStorage = () => {
-//     //Ajout dans le tableau de l'objet avec les values choisi par l'utilisateur
-//     productSaveInLocalStorage.push(values_product);
-//     //Transformation en format JSON et l'envoyer dans la key "cart" du localStorage
-//     localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-// };
-
-// //S'il y a déjà des produits enregistrés dans le localStorage
-// if(productSaveInLocalStorage) {
-//     addProductLocalStorage();
-//     popupConfirmation();
-// }
-// //S'il n'y a pas de produit enregistré dans le localStorage
-// else{
-//     productSaveInLocalStorage = [];
-//     addProductLocalStorage();
-//     popupConfirmation();
-// }
