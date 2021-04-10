@@ -42,79 +42,13 @@ else{
 //****************************************Fin de l'affichage des produits du panier****************************************
 
 //----------------------------------------Gestion du bouton augmenter et diminuer les quantités d'un article dans le panier----------------------------------------
-const btnIncrease = document.querySelector(".btn-increase");
-console.log("btnIncrease :");
-console.log(btnIncrease);
 
-// btnIncrease.addEventListener('click', (e) => {
-//     e.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
-
-// });
-
-
-//  const increaseItem = document.querySelectorAll(".btn-increase");
-//  increaseItem.forEach((btn) => {
-//      btn.addEventListener('click', e => {
-//          addOneItem(e, productSaveInLocalStorage);
-//      });
-//  });
-
-// function addOneItem(e, productSaveInLocalStorage) {
-//     let index = e.target.classList[1].slice(-1);
-//     productSaveInLocalStorage[index].quantity++;
-//     sessionStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-// };
 
 //****************************************Fin de la gestion du bouton augmenter et diminuer les quantités d'un article dans le panier****************************************
 
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
 
-// function deleteItemSelect(e, productSaveInLocalStorage) {
-//     let index = e.target.classList[1].slice(-1);
-//     productSaveInLocalStorage.splice(index, 1);
-//     sessionStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
 
-//     if (productSaveInLocalStorage.length === 0) {
-//         sessionStorage.removeItem('cart');
-//     }
-// }
-// console.log("deleteItemSelect");
-// console.log(deleteItemSelect());
-
-// //séléction des références de tous les boutons btn-supprimer
-// const btnDelete = document.querySelectorAll(".btn-delete");
-// console.log(btnDelete);
-
-// btnDelete.forEach((btn) => {
-//     btn.addEventListener('click', e => {
-//         deleteItemSelect(e, productSaveInLocalStorage);
-//     });
-// });
-
-// for(let l = 0; l < btnDelete.length; l++) {
-//     btnDelete[l].addEventListener("click", (event) => {
-//         event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
-
-//         //Séléction de l'id du produit qui va être supprimé en cliquant sur le bouton
-//         let idSelectionDelete = productSaveInLocalStorage[l].id;
-//         console.log("idSelectionDelete");
-//         console.log(idSelectionDelete);
-
-//         //Avec la méthode filter je sélectionne les éléments à garder et je supprime l'élément où le btn supprimer a été cliqué
-//         productSaveInLocalStorage = productSaveInLocalStorage.filter( el => el.id !== idSelectionDelete);
-//             console.log(productSaveInLocalStorage);
-        
-//         //On envoie la variable dans le localStorage
-//         //La transformation en format JSON et l'envoyer dans la key "cart" du localStorage
-//         localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-
-//         //alert pour avertir que le produit a été supprimé et rechargement de la page
-//         alert("Ce produit a été supprimé du panier.");
-
-//         //Rechargement de la page
-//         window.location.href = "cart.html";
-//     })
-// }
 
 //****************************************Fin de la gestion du bouton supprimer l'article****************************************
 
@@ -209,42 +143,15 @@ const displayFormHtml = () => {
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col">
-                <label for="address2">Compléments d'adresse :</label>
-                <input name="address2" type="text" id="address2" class="form-control" placeholder="exemple : numéro bâtiment, appartement, etc...">
-                <div class="invalid-feedback text-danger" id="textIncorrectAddress2"></div>
-            </div>
-        </div>
-        <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="city">Ville :</label>
                 <input name="city" type="text" id="city" class="form-control" placeholder="exemple : Paris">
                 <div class="invalid-feedback text-danger" id="textIncorrectCity"></div>
             </div>
             <div class="form-group col-md-6">
-                <label for="zipCode">Code postal :</label>
-                <input name="zipCode" type="number" id="zipCode" class="form-control" placeholder="exemple : 75680">
-                <div class="invalid-feedback text-danger" id="textIncorrectZipCode"></div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col">
-                <label for="country">Pays :</label>
-                <input name="country" type="text" id="country" class="form-control" placeholder="exemple : France">
-                <div class="invalid-feedback text-danger" id="textIncorrectCountry"></div>
-            </div>
-        </div>
-        <div class="form-row">
-
-            <div class="form-group col-md-6">
                 <label for="email">Mail :</label>
                 <input name="email" type="text" id="email" class="form-control" placeholder="exemple : oriteddy@orinoco.com">
                 <div class="invalid-feedback text-danger" id="textIncorrectEmail"></div>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="phone">Téléphone :</label>
-                <input name="phone" type="tel" id="phone" class="form-control" placeholder="exemple : 0753851239">
-                <div class="invalid-feedback text-danger" id="textIncorrectPhone"></div>
             </div>
         </div>
         <div class="text-center">
@@ -275,12 +182,8 @@ btnSendForm.addEventListener("click", (e) => {
             this.lastname = document.querySelector("#lastname").value;
             this.firstname = document.querySelector("#firstname").value;
             this.address = document.querySelector("#address").value;
-            this.address2 = document.querySelector("#address2").value;
             this.city = document.querySelector("#city").value;
-            this.zipCode = document.querySelector("#zipCode").value;
-            this.country = document.querySelector("#country").value;
             this.email = document.querySelector("#email").value;
-            this.phone = document.querySelector("#phone").value;
         }
     }
 
@@ -296,7 +199,7 @@ btnSendForm.addEventListener("click", (e) => {
         return `${value} : veuillez remplir correctement ce champ.`;
     }
 
-    const regExLastnameFirstnameCityCountry = (value) => {
+    const regExLastnameFirstnameCity = (value) => {
         return /^\S[a-z ,.'à-ÿ-]+$/.test(value);    //la méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle.
     }                                               //elle retourne true en succès, et false en cas contraire (booléen).
 
@@ -328,7 +231,7 @@ btnSendForm.addEventListener("click", (e) => {
     //Contrôle de la validité du nom
     function lastNameControl() {
         const theLastName = formValues.lastname;
-        if(regExLastnameFirstnameCityCountry(theLastName)) {
+        if(regExLastnameFirstnameCity(theLastName)) {
             colorCorrectFormField("lastname");
             textCorrectFormField("textIncorrectLastName");
             return true;
@@ -343,7 +246,7 @@ btnSendForm.addEventListener("click", (e) => {
     //Contrôle de la validité du prénom
     function firstNameControl() {
         const theFirstName = formValues.firstname;
-        if(regExLastnameFirstnameCityCountry(theFirstName)) {
+        if(regExLastnameFirstnameCity(theFirstName)) {
             colorCorrectFormField("firstname");
             textCorrectFormField("textIncorrectFirstName");
             return true;
@@ -370,25 +273,10 @@ btnSendForm.addEventListener("click", (e) => {
         }
     }
 
-    //Contrôle de la validité des compléments d'adresse
-    function address2Control() {
-        const theAddress2 = formValues.address2;
-        if(/^[A-z0-9 'à-ÿ-]{5,30}$/.test(theAddress2)) {
-            colorCorrectFormField("address2");
-            textCorrectFormField("textIncorrectAddress2");
-            return true;
-        }else{
-            colorIncorrectFormField("address2");
-            textIncorrectFormField("textIncorrectAddress2");
-            alert(textAlert("Compléments d'adresse incorrect"));
-            return false;
-        }
-    }
-
     //Contrôle de la validité de la ville
     function cityControl() {
         const theCity = formValues.city;
-        if(regExLastnameFirstnameCityCountry(theCity)) {
+        if(regExLastnameFirstnameCity(theCity)) {
             colorCorrectFormField("city");
             textCorrectFormField("textIncorrectCity");
             return true;
@@ -396,36 +284,6 @@ btnSendForm.addEventListener("click", (e) => {
             colorIncorrectFormField("city");
             textIncorrectFormField("textIncorrectCity");
             alert(textAlert("Ville incorrect"));
-            return false;
-        }
-    }
-
-    //Contrôle de la validité du code postal
-    function zipCodeControl() {
-        const theZipCode = formValues.zipCode;
-        if(/^[0-9]{5}$/.test(theZipCode)) {
-            colorCorrectFormField("zipCode");
-            textCorrectFormField("textIncorrectZipCode");
-            return true;
-        }else{
-            colorIncorrectFormField("zipCode");
-            textIncorrectFormField("textIncorrectZipCode");
-            alert(textAlert("Code postal incorrect"));
-            return false;
-        }
-    }
-
-    //Contrôle de la validité du pays
-    function countryControl() {
-        const theCountry = formValues.country;
-        if(regExLastnameFirstnameCityCountry(theCountry)) {
-            colorCorrectFormField("country");
-            textCorrectFormField("textIncorrectCountry");
-            return true;
-        }else{
-            colorIncorrectFormField("country");
-            textIncorrectFormField("textIncorrectCountry");
-            alert(textAlert("Pays incorrect"));
             return false;
         }
     }
@@ -445,23 +303,8 @@ btnSendForm.addEventListener("click", (e) => {
         }
     }
 
-    //Contrôle de la validité du téléphone
-    function phoneControl() {
-        const thePhone = formValues.phone;
-        if(/^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/.test(thePhone)) {
-            colorCorrectFormField("phone");
-            textCorrectFormField("textIncorrectPhone");
-            return true;
-        }else{
-            colorIncorrectFormField("phone");
-            textIncorrectFormField("textIncorrectPhone");
-            alert(textAlert("Téléphone incorrect"));
-            return false;
-        }
-    }
-
     //Contrôle validité formulaire avant envoie dans le localStorage
-    if(lastNameControl() && firstNameControl() && addressControl() && address2Control() && cityControl() && zipCodeControl() && countryControl() && emailControl() && phoneControl()) {
+    if(lastNameControl() && firstNameControl() && addressControl() && cityControl() && emailControl()) {
         //Mettre l'objet "formValues" dans le localStorage
         localStorage.setItem("formValues", JSON.stringify(formValues));
     }else{
@@ -522,60 +365,7 @@ function fillInputWithLocalStorage(input) {
 fillInputWithLocalStorage("lastname");
 fillInputWithLocalStorage("firstname");
 fillInputWithLocalStorage("address");
-fillInputWithLocalStorage("address2");
 fillInputWithLocalStorage("city");
-fillInputWithLocalStorage("zipCode");
-fillInputWithLocalStorage("country");
 fillInputWithLocalStorage("email");
-fillInputWithLocalStorage("phone");
 
 //****************************************Fin du formulaire de commande****************************************
-
-
-
-
-
-/* <tr class="text-center">
-<th scope ="row" class="pictureCart"><img src='${productSaveInLocalStorage[k].picture}' alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>
-<td>${productSaveInLocalStorage[k].name}</td>
-<td>${productSaveInLocalStorage[k].color}</td>
-<td>${productSaveInLocalStorage[k].price} €</td>
-<td>${productSaveInLocalStorage[k].quantity}</td>
-<td>${productSaveInLocalStorage[k].id}</td>
-<td><button type="button" class="btn btn-danger btn-delete">X</button></td>
-</tr> */
-
-// //séléction des références de tous les boutons btn-supprimer
-// let btnDelete = document.getElementsByClassName("btn-delete");
-// console.log(btnDelete);
-// console.log(btnDelete[0]);
-
-// for(let l = 0; l < btnDelete.length; l++) {
-//     console.log(btnDelete[l].parentNode.parentNode);
-//     btnDelete[l].addEventListener("click", function(event) {
-//         console.log("id a supprimer :");
-//         console.log();
-//         console.log("couleur a supprimer :");
-
-//         event.preventDefault(); //pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
-
-//         let newProductSaveInLocalStorage = [];
-//         console.log("on parcours le tableau du panier stocké en localStorage :");
-//         for(let n = 0; n < productSaveInLocalStorage.length; n++) {
-//             console.log("ligne " + n + " :");
-//             console.log(productSaveInLocalStorage[n]);
-//             //si pas même id que les autres
-//             //if (productSaveInLocalStorage[n].id !== event.target.id) 
-//         }
-        
-//         //on envoie la variable dans le localStorage
-//         //la transformation en format JSON et l'envoyer dans la key "cart" du localStorage
-//         localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-
-//         //alert pour avertir que le produit a été supprimé et rechargement de la page
-//         alert("Ce produit a été supprimé du panier.");
-
-//         //rechargement de la page
-//         window.location.href = "cart.html";
-//     });
-// };
