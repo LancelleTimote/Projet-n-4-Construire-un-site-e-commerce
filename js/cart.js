@@ -41,16 +41,28 @@ else{
 
 //****************************************Fin de l'affichage des produits du panier****************************************
 
+
+
+
+
 //----------------------------------------Gestion du bouton augmenter et diminuer les quantités d'un article dans le panier----------------------------------------
 
 
 //****************************************Fin de la gestion du bouton augmenter et diminuer les quantités d'un article dans le panier****************************************
+
+
+
+
 
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
 
 
 
 //****************************************Fin de la gestion du bouton supprimer l'article****************************************
+
+
+
+
 
 //----------------------------------------Bouton pour vider entièrement le panier----------------------------------------
 //Code HTML du bouton à afficher dans la page
@@ -84,6 +96,10 @@ btnDeleteAllProduct.addEventListener('click', (e) => {
 
 //****************************************Fin du bouton pour vider entièrement le panier****************************************
 
+
+
+
+
 //----------------------------------------Montant total du panier----------------------------------------
 //Déclaration de la variable pour pouvoir y mettre les prix qui sont présents dans le panier
 let totalPriceCalcul = [];
@@ -114,6 +130,10 @@ const displayTotalPriceHtml = `
 cart.insertAdjacentHTML("beforeend", displayTotalPriceHtml);
 
 //****************************************Fin du montant total panier****************************************
+
+
+
+
 
 //----------------------------------------Formulaire de commande----------------------------------------
 
@@ -168,10 +188,16 @@ const displayFormHtml = () => {
 //Affichage du formulaire
 displayFormHtml();
 
+//****************************************Fin du formulaire de commande****************************************
+
+
+
+
+
 //Séléction du bouton envoyer le formulaire
 const btnSendForm = document.querySelector("#sendForm");
 
-//--------------------AddEventListener--------------------
+//----------------------------------------AddEventListener pour commander----------------------------------------
 btnSendForm.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -193,40 +219,6 @@ btnSendForm.addEventListener("click", (e) => {
     console.log(formValues);
 
     //--------------------Gestion validation du formulaire--------------------
-
-    //----------Gestion des regex et des alertes----------
-    const textAlert = (value) => {
-        return `${value} : veuillez remplir correctement ce champ.`;
-    }
-
-    const regExLastnameFirstnameCity = (value) => {
-        return /^\S[a-z ,.'à-ÿ-]+$/.test(value);    //la méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle.
-    }                                               //elle retourne true en succès, et false en cas contraire (booléen).
-
-    //**********Fin gestion des regex et des alertes**********
-
-    //----------fonction pour gérer l'affichage du texte en dessous de l'input pour indiquer qu'il faut le remplir correctement----------
-    function textCorrectFormField(querySelectorId) {
-        document.querySelector(`#${querySelectorId}`).textContent = "";
-    }
-
-    function textIncorrectFormField(querySelectorId) {
-        document.querySelector(`#${querySelectorId}`).textContent = "Veuillez remplir correctement ce champ.";
-    }
-
-    //**********Fin fonction pour gérer l'affichage du texte en dessous de l'input pour indiquer qu'il faut le remplir correctement**********
-
-    //----------fonction pour gérer l'affichage de la couleur de l'input si correct ou incorrect----------
-    function colorCorrectFormField(querySelectorId) {
-        document.querySelector(`#${querySelectorId}`).classList.add("is-valid");
-        document.querySelector(`#${querySelectorId}`).classList.remove("is-invalid");
-    }
-
-    function colorIncorrectFormField(querySelectorId) {
-        document.querySelector(`#${querySelectorId}`).classList.add("is-invalid");
-    }
-
-    //**********Fin fonction pour gérer l'affichage de la couleur de l'input si correct ou incorrect**********
 
     //Contrôle de la validité du nom
     function lastNameControl() {
@@ -313,39 +305,59 @@ btnSendForm.addEventListener("click", (e) => {
 
     //********************Fin gestion validation formulaire********************
     
-    //Mettre les values du formulaire, les produits sélectionnés, et le total du panier dans un objet à envoyer au serveur
-    
-    
-    // const toSendServer = {
-    //     productSaveInLocalStorage,
-    //     formValues,
-    //     totalPrice,
-    // }
-    
-    // Requête POST, envoie de l'objet "toSendServer" au serveur
-    let contact = {
-        firstName: "dupont",
-        lastName: "phil",
-        address: "14 rue des fleurs",
-        city: "paris",
-        email: "orinoco@oriteddy.fr",
-    };
-    let products = ['5be9c8541c9d440000665243'];
-    let data = { contact, products };
-
-    fetch('http://localhost:3000/api/teddies/order', {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json()) 
-    .then(json => console.log(json))
-    .catch(err => console.log(err));
+    //Récupération des values du formulaire, des produits sélectionnés, et du total du panier pour envoyer au serveur
+    sendForm();
 })
 
-//********************Fin addEventListener********************
+//****************************************Fin AddEventListener pour commander****************************************
 
-//----------Mettre le contenu du localStorage dans les champs du formulaire pour que ça reste----------
+
+
+
+
+//----------------------------------------Fonctions gestion des validations formulaire----------------------------------------
+
+//----------Gestion des regex et des alertes----------
+const textAlert = (value) => {
+    return `${value} : veuillez remplir correctement ce champ.`;
+}
+
+const regExLastnameFirstnameCity = (value) => {
+    return /^\S[a-z ,.'à-ÿ-]+$/.test(value);    //la méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle.
+}                                               //elle retourne true en succès, et false en cas contraire (booléen).
+
+//**********Fin gestion des regex et des alertes**********
+
+//----------fonction pour gérer l'affichage du texte en dessous de l'input pour indiquer qu'il faut le remplir correctement----------
+function textCorrectFormField(querySelectorId) {
+    document.querySelector(`#${querySelectorId}`).textContent = "";
+}
+
+function textIncorrectFormField(querySelectorId) {
+    document.querySelector(`#${querySelectorId}`).textContent = "Veuillez remplir correctement ce champ.";
+}
+
+//**********Fin fonction pour gérer l'affichage du texte en dessous de l'input pour indiquer qu'il faut le remplir correctement**********
+
+//----------fonction pour gérer l'affichage de la couleur de l'input si correct ou incorrect----------
+function colorCorrectFormField(querySelectorId) {
+    document.querySelector(`#${querySelectorId}`).classList.add("is-valid");
+    document.querySelector(`#${querySelectorId}`).classList.remove("is-invalid");
+}
+
+function colorIncorrectFormField(querySelectorId) {
+    document.querySelector(`#${querySelectorId}`).classList.add("is-invalid");
+}
+
+//**********Fin fonction pour gérer l'affichage de la couleur de l'input si correct ou incorrect**********
+
+//****************************************Fin fonctions gestion des validations formulaire****************************************
+
+
+
+
+
+//----------------------------------------Mettre le contenu du localStorage dans les champs du formulaire pour que ça reste----------------------------------------
 
 //Prendre la key dans le localStorage et la mettre dans une variable
 const dataLocalStorage = localStorage.getItem("formValues");
@@ -368,4 +380,42 @@ fillInputWithLocalStorage("address");
 fillInputWithLocalStorage("city");
 fillInputWithLocalStorage("email");
 
-//****************************************Fin du formulaire de commande****************************************
+//****************************************Fin mettre le contenu du localStorage dans les champs du formulaire pour que ça reste****************************************
+
+
+
+
+
+//----------------------------------------Envoie des données au serveur----------------------------------------
+
+//Fonction récupération des values du formulaire, des produits sélectionnés, et du total du panier pour envoyer au serveur
+function sendForm() {
+    let contact = {
+        firstName: document.getElementById("firstname").value,
+        lastName: document.getElementById("lastname").value,
+        address: document.getElementById("address").value,
+        city: document.getElementById("city").value,
+        email: document.getElementById("email").value,
+    };
+    
+    let products = ['5be9c8541c9d440000665243'];
+    
+    let contactItems = JSON.stringify({
+        contact, products
+    })
+    postOrder(contactItems);
+}
+
+//Fonction requête POST, envoie des données au serveur
+function postOrder(contactItems) {
+    fetch('http://localhost:3000/api/teddies/order', {
+        method: "POST",
+        headers: {"Content-type": "application/json; charset=UTF-8"},
+        body: contactItems
+    })
+    .then(response => response.json()) 
+    .then(json => console.log(json))
+    .catch(err => console.log(err));
+}
+
+//****************************************Fin envoie des données au serveur****************************************

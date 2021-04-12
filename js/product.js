@@ -45,7 +45,7 @@ function requestDone (response) {
     //Sélection du bouton ajouter l'article au panier
     const sendCart = document.getElementById('add_to_cart');
 
-    //----------------------------------------addEventListener --- Écouter le bouton et envoyer au panier
+    //----------------------------------------AddEventListener ajouter au panier----------------------------------------
     sendCart.addEventListener("click", (event) => {
         event.preventDefault();
 
@@ -119,6 +119,8 @@ function requestDone (response) {
         //Transformation en format JSON et l'envoyer dans la key "cart" du localStorage
         localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
     });
+
+    //****************************************Fin AddEventListener ajouter au panier****************************************
 }
 
 //****************************************Fin de la fonction succès requête****************************************
