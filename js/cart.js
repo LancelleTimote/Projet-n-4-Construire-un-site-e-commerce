@@ -323,7 +323,7 @@ const textAlert = (value) => {
 }
 
 const regExLastnameFirstnameCity = (value) => {
-    return /^\S[a-z ,.'à-ÿ-]+$/.test(value);    //la méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle.
+    return /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(value);    //la méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle.
 }                                               //elle retourne true en succès, et false en cas contraire (booléen).
 
 //**********Fin gestion des regex et des alertes**********
@@ -398,7 +398,13 @@ function sendForm() {
         email: document.getElementById("email").value,
     };
     
-    let products = ['5be9c8541c9d440000665243'];
+    let products = [];
+    //pour chaque produit on push dans le tableau "products"
+    for (let z = 0; z < productSaveInLocalStorage.length; z++) {
+        for(let q = 0; q < productSaveInLocalStorage[z].quantity; q++) {
+            products.push(productSaveInLocalStorage[z].id);
+        }
+    }
     
     let contactItems = JSON.stringify({
         contact, products
