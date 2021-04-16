@@ -109,7 +109,7 @@ for (let m = 0; m < productSaveInLocalStorage.length; m++) {
     let priceProductInCart = productSaveInLocalStorage[m].price*productSaveInLocalStorage[m].quantity;
 
     //Mettre les prix du panier dans la variable "totalPriceCalcul"
-    totalPriceCalcul.push(priceProductInCart)
+    totalPriceCalcul.push(priceProductInCart);
 
     console.log(totalPriceCalcul);
 }
@@ -414,14 +414,24 @@ function sendForm() {
 
 //Fonction requête POST, envoie des données au serveur
 function postOrder(contactItems) {
-    fetch('http://localhost:3000/api/teddies/order', {
+    fetch("http://localhost:3000/api/teddies/order", {
         method: "POST",
         headers: {"Content-type": "application/json; charset=UTF-8"},
         body: contactItems
     })
-    .then(response => response.json()) 
-    .then(json => console.log(json))
-    .catch(err => console.log(err));
+    .then(response => {
+        return response.json();
+    }) 
+    .then(r => {
+        localStorage.setItem('contact', JSON.stringify(r.contact));
+        localStorage.setItem('orderId', JSON.stringify(r.orderId));
+        localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+        localStorage.removeItem('cart');
+        window.location.replace("./order_confirmation.html");
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
 
 //****************************************Fin envoie des données au serveur****************************************
