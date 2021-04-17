@@ -47,6 +47,43 @@ else{
 
 //----------------------------------------Gestion du bouton augmenter et diminuer les quantités d'un article dans le panier----------------------------------------
 
+//Bouton augmenter de 1 de quantité
+const btnIncreaseProduct = document.querySelectorAll(".btn-increase");  //séléction du bouton increase
+console.log("btnIncreaseProduct :");
+console.log(btnIncreaseProduct);
+
+//Bouton réduire de 1 la quantité
+const btnDecreaseProduct = document.querySelectorAll(".btn-decrease");
+console.log("btnDecreaseProduct :");
+console.log(btnDecreaseProduct);
+
+btnIncreaseProduct.forEach((btn) => {
+    btn.addEventListener('click', function(event) {
+        event.preventDefault();
+        addOneQuantity(productSaveInLocalStorage);
+    })
+})
+
+function addOneQuantity(productSaveInLocalStorage) {
+    for (let i in productSaveInLocalStorage) {
+        // index = e.target.classList[1].slice(-1);
+        productSaveInLocalStorage[i].quantity++;
+        localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+        location.reload();
+    }
+}
+
+// for (let i in productSaveInLocalStorage) {
+//     btnIncreaseProduct.forEach((btn) => {
+//         btn.addEventListener('click', (e) => {
+//             e.preventDefault();
+//             // i = e.target.classList[1].slice(-1);
+//             productSaveInLocalStorage[i].quantity++;
+//             localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+//             location.reload();
+//         })
+//     })
+// }
 
 //****************************************Fin de la gestion du bouton augmenter et diminuer les quantités d'un article dans le panier****************************************
 
@@ -55,7 +92,9 @@ else{
 
 
 //----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
-
+const btnDeleteProduct = document.querySelectorAll(".btn-delete");
+console.log("btnDeleteProduct :");
+console.log(btnDeleteProduct);
 
 
 //****************************************Fin de la gestion du bouton supprimer l'article****************************************
@@ -81,8 +120,8 @@ const btnDeleteAllProduct = document.querySelector(".btn-delete-all-product");
 console.log(btnDeleteAllProduct);
 
 //Suppression de la key "cart" du localStorage pour vider entièrement le panier
-btnDeleteAllProduct.addEventListener('click', (e) => {
-    e.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+btnDeleteAllProduct.addEventListener('click', function(event) {
+    event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
 
     //.removeItem pour vider le localStorage
     localStorage.removeItem("cart");
@@ -170,7 +209,7 @@ const displayFormHtml = () => {
             </div>
             <div class="form-group col-md-6">
                 <label for="email">Mail :</label>
-                <input name="email" type="text" id="email" class="form-control" placeholder="exemple : oriteddy@orinoco.com">
+                <input name="email" type="text" id="email" class="form-control" placeholder="exemple : oriteddy@oriteddy.com">
                 <div class="invalid-feedback text-danger" id="textIncorrectEmail"></div>
             </div>
         </div>
@@ -198,8 +237,8 @@ displayFormHtml();
 const btnSendForm = document.querySelector("#sendForm");
 
 //----------------------------------------AddEventListener pour commander----------------------------------------
-btnSendForm.addEventListener("click", (e) => {
-    e.preventDefault();
+btnSendForm.addEventListener("click", function(event) {
+    event.preventDefault();
 
     //Création / définition d'une classe pour fabriquer l'objet dans lequel iront les values du formulaire
     //Les values du formulaire

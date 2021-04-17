@@ -46,7 +46,7 @@ function requestDone (response) {
     const sendCart = document.getElementById('add_to_cart');
 
     //----------------------------------------AddEventListener ajouter au panier----------------------------------------
-    sendCart.addEventListener("click", (event) => {
+    sendCart.addEventListener("click", function(event) {
         event.preventDefault();
 
         //Sélection de la couleur

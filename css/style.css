@@ -2,11 +2,7 @@
     max-height: 625px;
 }
 
-li {
-    font-size: 18px;
-}
-
-.title-form {
+li, .title-form, .h3-order, .p-order {
     font-size: 18px;
 }
 
@@ -16,4 +12,8 @@ li {
 
 .pictureCart {
     width: 400px;
+}
+
+.ul-order {
+    list-style: none;
 }
