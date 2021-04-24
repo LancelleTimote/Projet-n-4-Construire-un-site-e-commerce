@@ -22,16 +22,15 @@ else{
     let structureProductCart = [];
 
     for(k = 0; k < productSaveInLocalStorage.length; k++) {
-        structureProductCart = structureProductCart + `
-        <tr class="text-center">
-            <th scope ="row" class="pictureCart"><img src='${productSaveInLocalStorage[k].picture}' alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>
-            <td>${productSaveInLocalStorage[k].name}</td>
-            <td>${productSaveInLocalStorage[k].color}</td>
-            <td>${productSaveInLocalStorage[k].price*productSaveInLocalStorage[k].quantity} €</td>
-            <td><button type="button" class="btn btn-danger btn-decrease">-</button> ${productSaveInLocalStorage[k].quantity} <button type="button" class="btn btn-success btn-increase">+</button></td>
-            <td><button type="button" class="btn btn-danger btn-delete">X</button></td>
-        </tr>
-        `;
+        structureProductCart += '<tr class="text-center">';
+        structureProductCart += '<td class="id d-none">'+productSaveInLocalStorage[k].id+'</td>';
+        structureProductCart += '<th scope ="row" class="pictureCart"><img src="'+productSaveInLocalStorage[k].picture+'" alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>';
+        structureProductCart += '<td>'+productSaveInLocalStorage[k].name+'</td>';
+        structureProductCart += '<td class="color">'+productSaveInLocalStorage[k].color+'</td>';
+        structureProductCart += '<td>'+productSaveInLocalStorage[k].price*productSaveInLocalStorage[k].quantity+' €</td>';
+        structureProductCart += '<td><button type="button" class="btn btn-danger btn-decrease">-</button> '+productSaveInLocalStorage[k].quantity+' <button type="button" class="btn btn-success btn-increase">+</button></td>';
+        structureProductCart += '<td><button type="button" class="btn btn-danger btn-delete">X</button></td>';
+        structureProductCart += '</tr>';
     }
     if(k === productSaveInLocalStorage.length) {
         //Injection HTML dans la page panier
@@ -47,43 +46,80 @@ else{
 
 //----------------------------------------Gestion du bouton augmenter et diminuer les quantités d'un article dans le panier----------------------------------------
 
-//Bouton augmenter de 1 de quantité
-const btnIncreaseProduct = document.querySelectorAll(".btn-increase");  //séléction du bouton increase
-console.log("btnIncreaseProduct :");
-console.log(btnIncreaseProduct);
+//--------------------Création d'un bouton pour augmenter la quantité d'un produit dans le panier--------------------
 
-//Bouton réduire de 1 la quantité
-const btnDecreaseProduct = document.querySelectorAll(".btn-decrease");
-console.log("btnDecreaseProduct :");
-console.log(btnDecreaseProduct);
+function increaseButtons() {
+    const increaseButtons = document.querySelectorAll(".btn-increase");
+    let idProduct;
+    let colorProduct;
+    for (let i = 0; i < increaseButtons.length; i++) {
+        increaseButtons[i].addEventListener('click', function(event) {
+            event.preventDefault();
+            //récupération de l'id de la ligne cliqué
+            idProduct = increaseButtons[i].parentElement.parentElement.childNodes[0].innerText.trim();
 
-btnIncreaseProduct.forEach((btn) => {
-    btn.addEventListener('click', function(event) {
-        event.preventDefault();
-        addOneQuantity(productSaveInLocalStorage);
-    })
-})
+             //récupération de la couleur de la ligne cliqué
+            colorProduct = increaseButtons[i].parentElement.parentElement.childNodes[3].innerText.trim();
 
-function addOneQuantity(productSaveInLocalStorage) {
-    for (let i in productSaveInLocalStorage) {
-        // index = e.target.classList[1].slice(-1);
-        productSaveInLocalStorage[i].quantity++;
-        localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-        location.reload();
+            for (let product in productSaveInLocalStorage) {
+                //si couleur et id du produit cliqué pareil que celui dans localstorage
+                if(idProduct === productSaveInLocalStorage[product].id && colorProduct === productSaveInLocalStorage[product].color) {
+                    productSaveInLocalStorage[product].quantity++;
+                    localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+                    location.reload();
+                }
+            }
+        })
     }
 }
 
-// for (let i in productSaveInLocalStorage) {
-//     btnIncreaseProduct.forEach((btn) => {
-//         btn.addEventListener('click', (e) => {
-//             e.preventDefault();
-//             // i = e.target.classList[1].slice(-1);
-//             productSaveInLocalStorage[i].quantity++;
-//             localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
-//             location.reload();
-//         })
-//     })
-// }
+increaseButtons();
+
+//********************Fin création d'un bouton pour augmenter la quantité d'un produit dans le panier********************
+
+//--------------------Création d'un bouton pour diminuer la quantité d'un produit dans le panier--------------------
+
+function decreaseButtons() {
+    const decreaseButtons = document.querySelectorAll(".btn-decrease");
+    let idProduct;
+    let colorProduct;
+    for (let i = 0; i < decreaseButtons.length; i++) {
+        decreaseButtons[i].addEventListener('click', function(event) {
+            event.preventDefault();
+            //récupération de l'id de la ligne cliqué
+            idProduct = decreaseButtons[i].parentElement.parentElement.childNodes[0].innerText.trim();
+
+            //récupération de la couleur de la ligne cliqué
+            colorProduct = decreaseButtons[i].parentElement.parentElement.childNodes[3].innerText.trim();
+
+            for (let product in productSaveInLocalStorage) {
+                //si couleur et id du produit cliqué pareil que celui dans localstorage, et quantité dans localstorage = 1
+                if(idProduct === productSaveInLocalStorage[product].id && colorProduct === productSaveInLocalStorage[product].color && productSaveInLocalStorage[product].quantity === 1) {
+                    alert(`L'ours en peluche "${productSaveInLocalStorage[product].name}" avec la couleur "${productSaveInLocalStorage[product].color}" a bien été supprimé du panier.`);
+                    //on supprime l'élément du tableau
+                    productSaveInLocalStorage.splice([product], 1);
+                    localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+                    location.reload();
+
+                    //si plus de produit dans la localstorage, on le clear
+                    if(productSaveInLocalStorage.length === 0) {
+                        localStorage.clear();
+                        location.reload();
+                    }
+                }
+                else if(idProduct === productSaveInLocalStorage[product].id && colorProduct === productSaveInLocalStorage[product].color) {
+                    productSaveInLocalStorage[product].quantity--;
+                    localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+                    location.reload();
+                }
+            }
+        })
+    }
+}
+
+decreaseButtons();
+
+//********************Fin création d'un bouton pour diminuer la quantité d'un produit dans le panier********************
 
 //****************************************Fin de la gestion du bouton augmenter et diminuer les quantités d'un article dans le panier****************************************
 
@@ -91,11 +127,43 @@ function addOneQuantity(productSaveInLocalStorage) {
 
 
 
-//----------------------------------------Gestion du bouton supprimer l'article----------------------------------------
-const btnDeleteProduct = document.querySelectorAll(".btn-delete");
-console.log("btnDeleteProduct :");
-console.log(btnDeleteProduct);
+//----------------------------------------Gestion du bouton supprimer un article dans le panier----------------------------------------
 
+function deleteButtons() {
+    const deleteButtons = document.querySelectorAll(".btn-delete");
+    let idProduct;
+    let colorProduct;
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function(event) {
+            event.preventDefault();
+
+            //récupération de l'id de la ligne cliqué
+            idProduct = deleteButtons[i].parentElement.parentElement.childNodes[0].innerText.trim();
+
+            //récupération de la couleur de la ligne cliqué
+            colorProduct = deleteButtons[i].parentElement.parentElement.childNodes[3].innerText.trim();
+
+            for (let product in productSaveInLocalStorage) {
+                //si couleur et id du produit cliqué pareil que celui dans localstorage
+                if(idProduct === productSaveInLocalStorage[product].id && colorProduct === productSaveInLocalStorage[product].color) {
+                    alert(`L'ours en peluche "${productSaveInLocalStorage[product].name}" avec la couleur "${productSaveInLocalStorage[product].color}" a bien été supprimé du panier.`);
+                    //on supprime l'élément du tableau
+                    productSaveInLocalStorage.splice([product], 1);
+                    localStorage.setItem('cart', JSON.stringify(productSaveInLocalStorage));
+                    location.reload();
+                    
+                    //si plus de produit dans la localstorage, on le clear
+                    if(productSaveInLocalStorage.length === 0) {
+                        localStorage.clear();
+                        location.reload();
+                    }
+                }
+            }
+        })
+    }
+}
+
+deleteButtons();
 
 //****************************************Fin de la gestion du bouton supprimer l'article****************************************
 
@@ -110,7 +178,6 @@ const btnHtmlDeleteAllProduct = `
     <th colspan="6"><button type="button" class="btn btn-danger btn-delete-all-product">Vider le panier</button></th>
 </tr>
 `;
-console.log(btnHtmlDeleteAllProduct);
 
 //Insertion du bouton dans le HTML du panier
 cart.insertAdjacentHTML("beforeend", btnHtmlDeleteAllProduct);
@@ -130,7 +197,7 @@ btnDeleteAllProduct.addEventListener('click', function(event) {
     alert("Le panier a été vidé.")
 
     //Rechargement de la page
-    window.location.href = "cart.html";
+    location.reload();
 });
 
 //****************************************Fin du bouton pour vider entièrement le panier****************************************

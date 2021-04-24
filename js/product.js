@@ -73,7 +73,7 @@ function requestDone (response) {
 
         //Fonction fenêtre popup
         const popupConfirmation = () => {
-            if(window.confirm(`${response.name} avec l'option : ${colorChoice} a bien été ajouté au panier. Consulter le panier OK ou revenir à l'accueil Annuler`)){
+            if(window.confirm(`L'ours en peluche "${response.name}" avec la couleur "${colorChoice}" a bien été ajouté au panier. Consulter le panier OK ou revenir à l'accueil Annuler`)){
                 window.location.href = "cart.html";
             }else{
                 window.location.href = "index.html";
