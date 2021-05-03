@@ -5,7 +5,7 @@ Site e-commerce Oriteddy, présentant des ours en peluche.
 
 # Prérequis
 
-Vous avez besoin de Node, Sass et "npm" d'installé localement sur votre machine.
+Vous avez besoin de Node, et "npm" d'installé localement sur votre machine.
 
 
 # Installation
