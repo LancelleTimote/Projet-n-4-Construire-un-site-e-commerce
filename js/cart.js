@@ -1,42 +1,47 @@
-//Déclaration de la variable "productSaveInLocalStorage" dans laquelle on met les key et les values qui sont dans le local storage
+//Déclaration de la variable "productSaveInLocalStorage" dans laquelle on met la key "cart" et ses values qui sont dans le local storage
 let productSaveInLocalStorage = JSON.parse(localStorage.getItem('cart'));
 //JSON.parse pour convertir les données au format JSON qui sont dans le local storage en objet JavaScript
 console.log(productSaveInLocalStorage);
 
 //----------------------------------------L'affichage des produits du panier----------------------------------------
-//Séléction de l'élément où je vais injecter le code HTML
-const cart = document.getElementById('cart');
-console.log(cart);
 
-//Si le panier est vide : afficher le panier est vide
-if(productSaveInLocalStorage === null || productSaveInLocalStorage == 0) {
-    const emptyCart = `
-        <tr class="text-center">
-        <th colspan="6">Le panier est vide.</th>
-        </tr>
-    `;
-    cart.innerHTML = emptyCart;
-}
-//Si le panier n'est pas vide : afficher les produits dans le localStorage
-else{
-    let structureProductCart = [];
+function displayProductInCart () {
+    //Séléction de l'élément où je vais injecter le code HTML
+    const cart = document.getElementById('cart');
+    console.log(cart);
 
-    for(k = 0; k < productSaveInLocalStorage.length; k++) {
-        structureProductCart += '<tr class="text-center">';
-        structureProductCart += '<td class="id d-none">'+productSaveInLocalStorage[k].id+'</td>';
-        structureProductCart += '<th scope ="row" class="pictureCart"><img src="'+productSaveInLocalStorage[k].picture+'" alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>';
-        structureProductCart += '<td>'+productSaveInLocalStorage[k].name+'</td>';
-        structureProductCart += '<td class="color">'+productSaveInLocalStorage[k].color+'</td>';
-        structureProductCart += '<td>'+productSaveInLocalStorage[k].price*productSaveInLocalStorage[k].quantity+' €</td>';
-        structureProductCart += '<td><button type="button" class="btn btn-danger btn-decrease">-</button> '+productSaveInLocalStorage[k].quantity+' <button type="button" class="btn btn-success btn-increase">+</button></td>';
-        structureProductCart += '<td><button type="button" class="btn btn-danger btn-delete">X</button></td>';
-        structureProductCart += '</tr>';
+    //Si le panier est vide : afficher le panier est vide
+    if(productSaveInLocalStorage === null || productSaveInLocalStorage == 0) {
+        const emptyCart = `
+            <tr class="text-center">
+            <th colspan="6">Le panier est vide.</th>
+            </tr>
+        `;
+        cart.innerHTML = emptyCart;
     }
-    if(k === productSaveInLocalStorage.length) {
-        //Injection HTML dans la page panier
-        cart.innerHTML = structureProductCart;
+    //Si le panier n'est pas vide : afficher les produits dans le localStorage
+    else{
+        let structureProductCart = [];
+
+        for(k = 0; k < productSaveInLocalStorage.length; k++) {
+            structureProductCart += '<tr class="text-center">';
+            structureProductCart += '<td class="id d-none">'+productSaveInLocalStorage[k].id+'</td>';
+            structureProductCart += '<th scope ="row" class="pictureCart"><img src="'+productSaveInLocalStorage[k].picture+'" alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>';
+            structureProductCart += '<td>'+productSaveInLocalStorage[k].name+'</td>';
+            structureProductCart += '<td class="color">'+productSaveInLocalStorage[k].color+'</td>';
+            structureProductCart += '<td>'+productSaveInLocalStorage[k].price*productSaveInLocalStorage[k].quantity+' €</td>';
+            structureProductCart += '<td><button type="button" class="btn btn-danger btn-decrease">-</button> '+productSaveInLocalStorage[k].quantity+' <button type="button" class="btn btn-success btn-increase">+</button></td>';
+            structureProductCart += '<td><button type="button" class="btn btn-danger btn-delete">X</button></td>';
+            structureProductCart += '</tr>';
+        }
+        if(k === productSaveInLocalStorage.length) {
+            //Injection HTML dans la page panier
+            cart.innerHTML = structureProductCart;
+        }
     }
 }
+
+displayProductInCart();
 
 //****************************************Fin de l'affichage des produits du panier****************************************
 
@@ -172,33 +177,38 @@ deleteButtons();
 
 
 //----------------------------------------Bouton pour vider entièrement le panier----------------------------------------
-//Code HTML du bouton à afficher dans la page
-const btnHtmlDeleteAllProduct = `
-<tr class="text-center">
-    <th colspan="6"><button type="button" class="btn btn-danger btn-delete-all-product">Vider le panier</button></th>
-</tr>
-`;
 
-//Insertion du bouton dans le HTML du panier
-cart.insertAdjacentHTML("beforeend", btnHtmlDeleteAllProduct);
+function clearCart() {
+    //Code HTML du bouton à afficher dans la page
+    const btnHtmlDeleteAllProduct = `
+    <tr class="text-center">
+        <th colspan="6"><button type="button" class="btn btn-danger btn-delete-all-product">Vider le panier</button></th>
+    </tr>
+    `;
 
-//Sélection de la référence du bouton "btn-delete-all-product"
-const btnDeleteAllProduct = document.querySelector(".btn-delete-all-product");
-console.log(btnDeleteAllProduct);
+    //Insertion du bouton dans le HTML du panier
+    cart.insertAdjacentHTML("beforeend", btnHtmlDeleteAllProduct);
 
-//Suppression de la key "cart" du localStorage pour vider entièrement le panier
-btnDeleteAllProduct.addEventListener('click', function(event) {
-    event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
+    //Sélection de la référence du bouton "btn-delete-all-product"
+    const btnDeleteAllProduct = document.querySelector(".btn-delete-all-product");
+    console.log(btnDeleteAllProduct);
 
-    //.removeItem pour vider le localStorage
-    localStorage.removeItem("cart");
+    //Suppression de la key "cart" du localStorage pour vider entièrement le panier
+    btnDeleteAllProduct.addEventListener('click', function(event) {
+        event.preventDefault(); //Pour éviter les comportements par défaut sur les boutons, comme les rechargements de page
 
-    //alert "Le panier a été vidé."
-    alert("Le panier a été vidé.")
+        //.removeItem pour vider le localStorage
+        localStorage.removeItem("cart");
 
-    //Rechargement de la page
-    location.reload();
-});
+        //alert "Le panier a été vidé."
+        alert("Le panier a été vidé.")
+
+        //Rechargement de la page
+        location.reload();
+    });
+}
+
+clearCart();
 
 //****************************************Fin du bouton pour vider entièrement le panier****************************************
 
@@ -207,33 +217,38 @@ btnDeleteAllProduct.addEventListener('click', function(event) {
 
 
 //----------------------------------------Montant total du panier----------------------------------------
-//Déclaration de la variable pour pouvoir y mettre les prix qui sont présents dans le panier
-let totalPriceCalcul = [];
 
-//Aller chercher les prix dans le panier
-for (let m = 0; m < productSaveInLocalStorage.length; m++) {
-    let priceProductInCart = productSaveInLocalStorage[m].price*productSaveInLocalStorage[m].quantity;
+function totalOrderAmount() {
+    //Déclaration de la variable pour pouvoir y mettre les prix qui sont présents dans le panier
+    let totalPriceCalcul = [];
 
-    //Mettre les prix du panier dans la variable "totalPriceCalcul"
-    totalPriceCalcul.push(priceProductInCart);
+    //Aller chercher les prix dans le panier
+    for (let m = 0; m < productSaveInLocalStorage.length; m++) {
+        let priceProductInCart = productSaveInLocalStorage[m].price*productSaveInLocalStorage[m].quantity;
 
-    console.log(totalPriceCalcul);
+        //Mettre les prix du panier dans la variable "totalPriceCalcul"
+        totalPriceCalcul.push(priceProductInCart);
+
+        console.log(totalPriceCalcul);
+    }
+
+    //Additionner les prix qu'il y a dans le tableau de la variable prixTotalCalcul avec la méthode .reduce
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
+    const totalPrice = totalPriceCalcul.reduce(reducer,0);
+    console.log(totalPrice);
+
+    //Code HTML du prix total à afficher
+    const displayTotalPriceHtml = `
+    <tr class="text-center">
+        <th colspan="6">Le montant total du panier est de : <span id="totalOrderAmountId">${totalPrice} €</span></th>
+    </tr>
+    `;
+
+    //Injection html dans la page panier après le dernier enfant
+    cart.insertAdjacentHTML("beforeend", displayTotalPriceHtml);
 }
 
-//Additionner les prix qu'il y a dans le tableau de la variable prixTotalCalcul avec la méthode .reduce
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
-const totalPrice = totalPriceCalcul.reduce(reducer,0);
-console.log(totalPrice);
-
-//Code HTML du prix total à afficher
-const displayTotalPriceHtml = `
-<tr class="text-center">
-    <th colspan="6">Le montant total du panier est de : ${totalPrice} €</th>
-</tr>
-`;
-
-//Injection html dans la page panier après le dernier enfant
-cart.insertAdjacentHTML("beforeend", displayTotalPriceHtml);
+totalOrderAmount();
 
 //****************************************Fin du montant total panier****************************************
 
@@ -243,7 +258,7 @@ cart.insertAdjacentHTML("beforeend", displayTotalPriceHtml);
 
 //----------------------------------------Formulaire de commande----------------------------------------
 
-const displayFormHtml = () => {
+function displayFormHtml() {
     //Séléction élément du DOM pour le positionnement du formulaire
     const formPosition = document.querySelector(".table");
     const formStructure = `
@@ -300,122 +315,127 @@ displayFormHtml();
 
 
 
-//Séléction du bouton envoyer le formulaire
-const btnSendForm = document.querySelector("#sendForm");
+//----------------------------------------Gestion du bouton commander----------------------------------------
 
-//----------------------------------------AddEventListener pour commander----------------------------------------
-btnSendForm.addEventListener("click", function(event) {
-    event.preventDefault();
+function orderButton() {
+    //Séléction du bouton envoyer le formulaire
+    const btnSendForm = document.querySelector("#sendForm");
 
-    //Création / définition d'une classe pour fabriquer l'objet dans lequel iront les values du formulaire
-    //Les values du formulaire
-    class Form {
-        constructor() {
-            this.lastname = document.querySelector("#lastname").value;
-            this.firstname = document.querySelector("#firstname").value;
-            this.address = document.querySelector("#address").value;
-            this.city = document.querySelector("#city").value;
-            this.email = document.querySelector("#email").value;
+    //----------------------------------------AddEventListener pour commander----------------------------------------
+    btnSendForm.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        //Création / définition d'une classe pour fabriquer l'objet dans lequel iront les values du formulaire
+        //Les values du formulaire
+        class Form {
+            constructor() {
+                this.lastname = document.querySelector("#lastname").value;
+                this.firstname = document.querySelector("#firstname").value;
+                this.address = document.querySelector("#address").value;
+                this.city = document.querySelector("#city").value;
+                this.email = document.querySelector("#email").value;
+            }
         }
-    }
 
-    //Appel de l'instance de class "Form" pour créer l'objet formValues
-    const formValues = new Form();
-    console.log("formValues");
-    console.log(formValues);
+        //Appel de l'instance de class "Form" pour créer l'objet formValues
+        const formValues = new Form();
 
-    //--------------------Gestion validation du formulaire--------------------
+        //--------------------Gestion validation du formulaire--------------------
 
-    //Contrôle de la validité du nom
-    function lastNameControl() {
-        const theLastName = formValues.lastname;
-        if(regExLastnameFirstnameCity(theLastName)) {
-            colorCorrectFormField("lastname");
-            textCorrectFormField("textIncorrectLastName");
-            return true;
+        //Contrôle de la validité du nom
+        function lastNameControl() {
+            const theLastName = formValues.lastname;
+            if(regExLastnameFirstnameCity(theLastName)) {
+                colorCorrectFormField("lastname");
+                textCorrectFormField("textIncorrectLastName");
+                return true;
+            }else{
+                colorIncorrectFormField("lastname");
+                textIncorrectFormField("textIncorrectLastName");
+                alert(textAlert("Nom incorrect"));
+                return false;
+            }
+        }
+
+        //Contrôle de la validité du prénom
+        function firstNameControl() {
+            const theFirstName = formValues.firstname;
+            if(regExLastnameFirstnameCity(theFirstName)) {
+                colorCorrectFormField("firstname");
+                textCorrectFormField("textIncorrectFirstName");
+                return true;
+            }else{
+                colorIncorrectFormField("firstname");
+                textIncorrectFormField("textIncorrectFirstName");
+                alert(textAlert("Prénom incorrect"));
+                return false;
+            }
+        }
+
+        //Contrôle de la validité de l'adresse
+        function addressControl() {
+            const theAddress = formValues.address;
+            if(/^[0-9]{1,5}[A-z0-9 'à-ÿ-]{5,40}$/.test(theAddress)) {
+                colorCorrectFormField("address");
+                textCorrectFormField("textIncorrectAddress");
+                return true;
+            }else{
+                colorIncorrectFormField("address");
+                textIncorrectFormField("textIncorrectAddress");
+                alert(textAlert("Addresse incorrect"));
+                return false;
+            }
+        }
+
+        //Contrôle de la validité de la ville
+        function cityControl() {
+            const theCity = formValues.city;
+            if(regExLastnameFirstnameCity(theCity)) {
+                colorCorrectFormField("city");
+                textCorrectFormField("textIncorrectCity");
+                return true;
+            }else{
+                colorIncorrectFormField("city");
+                textIncorrectFormField("textIncorrectCity");
+                alert(textAlert("Ville incorrect"));
+                return false;
+            }
+        }
+
+        //Contrôle de la validité de l'email
+        function emailControl() {
+            const theEmail = formValues.email;
+            if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(theEmail)) {
+                colorCorrectFormField("email");
+                textCorrectFormField("textIncorrectEmail");
+                return true;
+            }else{
+                colorIncorrectFormField("email");
+                textIncorrectFormField("textIncorrectEmail");
+                alert(textAlert("Email incorrect"));
+                return false;
+            }
+        }
+
+        //Contrôle validité formulaire avant envoie dans le localStorage
+        if(lastNameControl() && firstNameControl() && addressControl() && cityControl() && emailControl()) {
+            //Mettre l'objet "formValues" dans le localStorage
+            localStorage.setItem("formValues", JSON.stringify(formValues));
+            //Récupération des values du formulaire, des produits sélectionnés, et du total du panier pour envoyer au serveur
+            sendForm();
         }else{
-            colorIncorrectFormField("lastname");
-            textIncorrectFormField("textIncorrectLastName");
-            alert(textAlert("Nom incorrect"));
-            return false;
+            alert("Veuillez remplir correctement le formulaire.");
         }
-    }
 
-    //Contrôle de la validité du prénom
-    function firstNameControl() {
-        const theFirstName = formValues.firstname;
-        if(regExLastnameFirstnameCity(theFirstName)) {
-            colorCorrectFormField("firstname");
-            textCorrectFormField("textIncorrectFirstName");
-            return true;
-        }else{
-            colorIncorrectFormField("firstname");
-            textIncorrectFormField("textIncorrectFirstName");
-            alert(textAlert("Prénom incorrect"));
-            return false;
-        }
-    }
+        //********************Fin gestion validation formulaire********************
+    })
 
-    //Contrôle de la validité de l'adresse
-    function addressControl() {
-        const theAddress = formValues.address;
-        if(/^[0-9]{1,5}[A-z0-9 'à-ÿ-]{5,40}$/.test(theAddress)) {
-            colorCorrectFormField("address");
-            textCorrectFormField("textIncorrectAddress");
-            return true;
-        }else{
-            colorIncorrectFormField("address");
-            textIncorrectFormField("textIncorrectAddress");
-            alert(textAlert("Addresse incorrect"));
-            return false;
-        }
-    }
+    //****************************************Fin AddEventListener pour commander****************************************
+}
 
-    //Contrôle de la validité de la ville
-    function cityControl() {
-        const theCity = formValues.city;
-        if(regExLastnameFirstnameCity(theCity)) {
-            colorCorrectFormField("city");
-            textCorrectFormField("textIncorrectCity");
-            return true;
-        }else{
-            colorIncorrectFormField("city");
-            textIncorrectFormField("textIncorrectCity");
-            alert(textAlert("Ville incorrect"));
-            return false;
-        }
-    }
+orderButton();
 
-    //Contrôle de la validité de l'email
-    function emailControl() {
-        const theEmail = formValues.email;
-        if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(theEmail)) {
-            colorCorrectFormField("email");
-            textCorrectFormField("textIncorrectEmail");
-            return true;
-        }else{
-            colorIncorrectFormField("email");
-            textIncorrectFormField("textIncorrectEmail");
-            alert(textAlert("Email incorrect"));
-            return false;
-        }
-    }
-
-    //Contrôle validité formulaire avant envoie dans le localStorage
-    if(lastNameControl() && firstNameControl() && addressControl() && cityControl() && emailControl()) {
-        //Mettre l'objet "formValues" dans le localStorage
-        localStorage.setItem("formValues", JSON.stringify(formValues));
-    }else{
-        alert("Veuillez remplir correctement le formulaire.");
-    }
-
-    //********************Fin gestion validation formulaire********************
-    
-    //Récupération des values du formulaire, des produits sélectionnés, et du total du panier pour envoyer au serveur
-    sendForm();
-})
-
-//****************************************Fin AddEventListener pour commander****************************************
+//****************************************Fin gestion du bouton commander****************************************
 
 
 
@@ -424,11 +444,11 @@ btnSendForm.addEventListener("click", function(event) {
 //----------------------------------------Fonctions gestion des validations formulaire----------------------------------------
 
 //----------Gestion des regex et des alertes----------
-const textAlert = (value) => {
+function textAlert(value) {
     return `${value} : veuillez remplir correctement ce champ.`;
 }
 
-const regExLastnameFirstnameCity = (value) => {
+function regExLastnameFirstnameCity(value) {
     return /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z]{3,20})$/.test(value);    //la méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle.
 }                                               //elle retourne true en succès, et false en cas contraire (booléen).
 
@@ -518,6 +538,10 @@ function sendForm() {
     postOrder(contactItems);
 }
 
+//Récupération du total du panier
+let totalOrderAmountPost = document.getElementById("totalOrderAmountId").innerText.trim();
+console.log(totalOrderAmountPost);
+
 //Fonction requête POST, envoie des données au serveur
 function postOrder(contactItems) {
     fetch("http://localhost:3000/api/teddies/order", {
@@ -531,7 +555,7 @@ function postOrder(contactItems) {
     .then(r => {
         localStorage.setItem('contact', JSON.stringify(r.contact));
         localStorage.setItem('orderId', JSON.stringify(r.orderId));
-        localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+        localStorage.setItem('totalPrice', JSON.stringify(totalOrderAmountPost));
         localStorage.removeItem('cart');
         window.location.replace("./order_confirmation.html");
     })
