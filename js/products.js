@@ -27,10 +27,10 @@ function requestDone (response) {
 
         //Création carte produit
         let card = document.createElement("section");  //On crée une div
-        card.classList.add("card-deck","col-md-4", "card-size");    //On ajoute trois class à la div
+        card.classList.add("card-deck", "card-size", "col-lg-4");    //On ajoute trois class à la div
         card.innerHTML = '<div class="card border-success shadow mb-4">'   //On ajoute du contenu dans la div
         +'<img src='+imageUrl+' alt="Photo ours en peluche" class="card-img-top">'
-        +'<div class="card-body">'
+        +'<div class="card-body text-center">'
             +'<h5 class="card-title">'+name+'</h5>'
             +'<p class="card-text">'+description+'</p>'
             +'<a href="product.html?id='+id+'" class="btn btn-success" role="button">Détails</a>'

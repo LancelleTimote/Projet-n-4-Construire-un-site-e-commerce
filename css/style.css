@@ -10,8 +10,12 @@ li, .title-form, .h3-order, .p-order {
     box-sizing: content-box;
 }
 
+.table td, .table th {
+    padding: 0.45rem;
+}
+
 .pictureCart {
-    width: 400px;
+    width: 175px;
 }
 
 .ul-order {

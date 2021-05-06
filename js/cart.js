@@ -25,8 +25,8 @@ function displayProductInCart () {
 
         for(k = 0; k < productSaveInLocalStorage.length; k++) {
             structureProductCart += '<tr class="text-center">';
-            structureProductCart += '<td class="id d-none">'+productSaveInLocalStorage[k].id+'</td>';
-            structureProductCart += '<th scope ="row" class="pictureCart"><img src="'+productSaveInLocalStorage[k].picture+'" alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></th>';
+            structureProductCart += '<th scope ="row" class="id d-none">'+productSaveInLocalStorage[k].id+'</th>';
+            structureProductCart += '<td class="pictureCart"><img src="'+productSaveInLocalStorage[k].picture+'" alt="Photo ours en peluche" class="w-50 d-block mx-auto border border-success"></td>';
             structureProductCart += '<td>'+productSaveInLocalStorage[k].name+'</td>';
             structureProductCart += '<td class="color">'+productSaveInLocalStorage[k].color+'</td>';
             structureProductCart += '<td>'+productSaveInLocalStorage[k].price*productSaveInLocalStorage[k].quantity+' €</td>';
@@ -265,12 +265,12 @@ function displayFormHtml() {
     <form class="bg-light">
         <h2 class="text-center title-form mb-4">Informations nécessaires pour valider la commande</h2>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-lg-6">
                 <label for="lastname">Nom :</label>
                 <input name="lastname" type="text" id="lastname" class="form-control" minlength="2" maxlength="30" placeholder="exemple : Dupont">
                 <div class="invalid-feedback text-danger" id="textIncorrectLastName"></div>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-lg-6">
                 <label for="firstname">Prénom :</label>
                 <input name="firstname" type="text" id="firstname" class="form-control" minlength="2" maxlength="30" placeholder="exemple : John">
                 <div class="invalid-feedback text-danger" id="textIncorrectFirstName"></div>
@@ -284,20 +284,20 @@ function displayFormHtml() {
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-lg-6">
                 <label for="city">Ville :</label>
                 <input name="city" type="text" id="city" class="form-control" placeholder="exemple : Paris">
                 <div class="invalid-feedback text-danger" id="textIncorrectCity"></div>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-lg-6">
                 <label for="email">Mail :</label>
                 <input name="email" type="text" id="email" class="form-control" placeholder="exemple : oriteddy@oriteddy.com">
                 <div class="invalid-feedback text-danger" id="textIncorrectEmail"></div>
             </div>
         </div>
-        <div class="text-center">
-            <button type="reset" class="btn btn-danger">Réinitialiser le formulaire</button>
-            <button type="submit" id="sendForm" class="btn btn-success">Commander</button>
+        <div class="text-center row">
+            <button type="reset" class="btn btn-danger col-lg-4 mx-lg-auto my-md-3 mt-lg-4">Réinitialiser le formulaire</button>
+            <button type="submit" id="sendForm" class="btn btn-success col-lg-4 mx-lg-auto mb-lg-3 mt-lg-4">Commander</button>
         </div>
     </form>
     `;
