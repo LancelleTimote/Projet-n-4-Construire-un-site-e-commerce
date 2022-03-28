@@ -44,7 +44,10 @@ L’équipe est constituée de Jeanne, développeuse back-end travaillant sur le
 
 ## :checkered_flag: 3. Objectifs du projet <a name = "objectifs_projet"></a>
 
-Apprendre à utiliser JavaScript tout en respectant les bonnes nomenclatures et pratiques.
+* Apprendre à utiliser JavaScript tout en respectant les bonnes nomenclatures et pratiques.
+* Gérer des événements JavaScript.
+* Interagir avec un web service avec JavaScript.
+* Valider des données issues de sources externes.
 
 ## :computer: 4. Technologies utilisées <a name = "technologies_utilisees"></a>
 
@@ -53,23 +56,23 @@ Apprendre à utiliser JavaScript tout en respectant les bonnes nomenclatures et 
 * CSS
 * JavaScript
 * Node.js
+* MongoDB
 * Photoshop
 * Git & GitHub
 
 ## :exclamation: 5. Prérequis <a name = "prerequis"></a>
 
-Node et "npm" installé localement sur la machine.
+Node.js installé localement sur la machine.
 
 ## :wrench: 6. Installation <a name = "installation"></a>
 
 * Cloner ce repository.
-* Depuis le dossier du projet, exécuter npm install et npm install -g sass.
-* Exécuter le serveur avec node server. Le serveur doit fonctionner sur localhost avec le port par défaut 3000.
-* Si le serveur fonctionne sur un autre port pour quelque raison que ce soit, c'est indiqué sur la console au démarrage du serveur. Regarder sur le port 3001.
+* Depuis le dossier du projet, exécuter npm install.
 
 ## :question: 7. Utilisation du site web <a name = "utilisation_siteweb"></a>
 
-Ouvrir le fichier index.html sur un navigateur web.
+* Dans le dossier document_projet, puis le dossier backend, démarrer le serveur avec node server. Le serveur doit fonctionner sur localhost avec le port par défaut 3000 (si le serveur fonctionne sur un autre port pour quelque raison que ce soit, c'est indiqué sur la console au démarrage du serveur.).
+* Ouvrir le fichier index.html sur un navigateur web.
 
 ## :beers: 8. Auteurs et Contributeurs <a name = "auteurs_contributeurs"></a>
 
