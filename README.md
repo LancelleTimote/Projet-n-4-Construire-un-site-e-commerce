@@ -62,16 +62,17 @@ L’équipe est constituée de Jeanne, développeuse back-end travaillant sur le
 
 ## :exclamation: 5. Prérequis <a name = "prerequis"></a>
 
-Node.js installé localement sur la machine.
+NodeJS en version 12.14 ou 14.0.
 
 ## :wrench: 6. Installation <a name = "installation"></a>
 
 * Cloner ce repository.
-* Depuis le dossier du projet, exécuter npm install.
+* Dans un terminal, depuis le dossier backend, exécuter npm install.
+* Toujours dans le terminal, depuis le dossier frontend, exécuter npm install.
 
 ## :question: 7. Utilisation du site web <a name = "utilisation_siteweb"></a>
 
-* Dans le dossier document_projet, puis le dossier backend, démarrer le serveur avec node server. Le serveur doit fonctionner sur localhost avec le port par défaut 3000 (si le serveur fonctionne sur un autre port pour quelque raison que ce soit, c'est indiqué sur la console au démarrage du serveur.).
+* Dans le terminal, depuis le dossier backend, écrire "nodemon server" pour lancer le serveur.
 * Ouvrir le fichier index.html sur un navigateur web.
 
 ## :beers: 8. Auteurs et Contributeurs <a name = "auteurs_contributeurs"></a>
