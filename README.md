@@ -51,8 +51,7 @@ L’équipe est constituée de Jeanne, développeuse back-end travaillant sur le
 
 ## :computer: 4. Technologies utilisées <a name = "technologies_utilisees"></a>
 
-* HTML
-* Bootstrap
+* HTML / Bootstrap
 * CSS
 * JavaScript
 * Node.js
